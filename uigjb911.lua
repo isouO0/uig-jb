@@ -127,32 +127,32 @@ local NOTIFICATION_STYLES = {
 }
 
 local C = {
-    WindowBg     = Color3.fromRGB(20, 20, 20),
-    CardBg       = Color3.fromRGB(24, 24, 24),
-    Border       = Color3.fromRGB(35, 35, 35),
-    Element      = Color3.fromRGB(31, 31, 31),
-    ElementHover = Color3.fromRGB(38, 38, 38),
-    Badge        = Color3.fromRGB(42, 42, 42),
-    BadgeIdle    = Color3.fromRGB(34, 34, 34),
-    NavActive    = Color3.fromRGB(30, 30, 30),
-    NavHover     = Color3.fromRGB(26, 26, 26),
-    PillActive   = Color3.fromRGB(36, 36, 36),
-    White        = Color3.fromRGB(255, 255, 255),
-    TextGray     = Color3.fromRGB(154, 154, 154),
-    TextDim      = Color3.fromRGB(139, 139, 139),
-    KnobOff      = Color3.fromRGB(85, 85, 85),
-    KnobOn       = Color3.fromRGB(17, 17, 17),
-    TrackBg      = Color3.fromRGB(43, 43, 43),
-    Placeholder  = Color3.fromRGB(86, 86, 86),
-    HotbarBg     = Color3.fromRGB(24, 24, 24),
-    HotbarBorder = Color3.fromRGB(35, 35, 35),
-    HotbarActive = Color3.fromRGB(31, 31, 31),
-    HotbarHover  = Color3.fromRGB(38, 38, 38),
-    HotbarDot    = Color3.fromRGB(220, 220, 220),
-    Accent       = Color3.fromRGB(167, 200, 244),
-    AccentDim    = Color3.fromRGB(26, 46, 74),
-    AccentText   = Color3.fromRGB(10, 16, 26),
-    KnobAccent   = Color3.fromRGB(16, 22, 32),
+    WindowBg     = Color3.fromRGB(8, 10, 16),        -- خلفية سوداء مزرقّة
+    CardBg       = Color3.fromRGB(12, 15, 22),       -- كروت سوداء مزرقّة
+    Border       = Color3.fromRGB(20, 30, 50),       -- حدود زرقاء داكنة
+    Element      = Color3.fromRGB(15, 20, 32),       -- عناصر سوداء مزرقّة
+    ElementHover = Color3.fromRGB(22, 30, 48),       -- عند التمرير
+    Badge        = Color3.fromRGB(25, 35, 55),       -- شارات
+    BadgeIdle    = Color3.fromRGB(18, 25, 40),       -- شارات خاملة
+    NavActive    = Color3.fromRGB(15, 22, 38),       -- التنقل النشط
+    NavHover     = Color3.fromRGB(10, 15, 25),       -- التنقل عند التمرير
+    PillActive   = Color3.fromRGB(22, 32, 52),       -- الأزرار النشطة
+    White        = Color3.fromRGB(220, 235, 255),    -- النص الأبيض المزرق
+    TextGray     = Color3.fromRGB(130, 155, 190),    -- النص الرمادي المزرق
+    TextDim      = Color3.fromRGB(100, 125, 160),    -- النص الخافت
+    KnobOff      = Color3.fromRGB(55, 75, 105),      -- مقبض إيقاف
+    KnobOn       = Color3.fromRGB(5, 10, 20),        -- مقبض تشغيل
+    TrackBg      = Color3.fromRGB(25, 38, 60),       -- مسار السلايدر
+    Placeholder  = Color3.fromRGB(70, 95, 130),      -- النص المؤقت
+    HotbarBg     = Color3.fromRGB(12, 15, 22),       -- شريط التبويبات
+    HotbarBorder = Color3.fromRGB(20, 30, 50),
+    HotbarActive = Color3.fromRGB(20, 30, 50),
+    HotbarHover  = Color3.fromRGB(28, 40, 62),
+    HotbarDot    = Color3.fromRGB(140, 180, 230),
+    Accent       = Color3.fromRGB(70, 130, 220),     -- الأزرق الرئيسي
+    AccentDim    = Color3.fromRGB(15, 30, 55),
+    AccentText   = Color3.fromRGB(240, 248, 255),    -- نص فوق الأزرق
+    KnobAccent   = Color3.fromRGB(10, 20, 35),
 }
 
 local THEMES = {
@@ -1954,7 +1954,7 @@ function Library:CreateWindow(opts)
     local loadingText         = tostring(opts.LoadingText or opts.Name or "Oxide")
     local loadingSub          = tostring(opts.LoadingSubtitle or "HUB")
     local loadingFooter       = tostring(opts.LoadingFooter or "Oxide HUB")
-    local overlayTransparency = math.clamp(tonumber(opts.LoadingOverlayTransparency) or 0.35, 0, 0.9)
+    local overlayTransparency = math.clamp(tonumber(opts.LoadingOverlayTransparency) or 0.6, 0, 0.9)
 
     -- accent palette derived from the active theme
     local ACC       = C.Accent
