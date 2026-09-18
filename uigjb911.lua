@@ -1951,9 +1951,9 @@ function Library:CreateWindow(opts)
     -- ── LOADING SCREEN (slam-in intro, themed with the accent colour) ─────
     local loadingEnabled      = opts.LoadingAnimation ~= false
     local loadingDuration     = math.clamp(tonumber(opts.LoadingDuration) or 1.2, 0.4, 8)
-    local loadingText         = tostring(opts.LoadingText or opts.Name or "Oxide")
+    local loadingText         = tostring(opts.LoadingText or opts.Name or "JB911")
     local loadingSub          = tostring(opts.LoadingSubtitle or "HUB")
-    local loadingFooter       = tostring(opts.LoadingFooter or "Oxide HUB")
+    local loadingFooter       = tostring(opts.LoadingFooter or "by-JB911•HUB•🇩🇿")
     local overlayTransparency = math.clamp(tonumber(opts.LoadingOverlayTransparency) or 0.6, 0, 0.9)
 
     -- accent palette derived from the active theme
