@@ -127,7 +127,6 @@ local NOTIFICATION_STYLES = {
 }
 
 local C = {
-    -- Premium smoked-black / deep-crimson glass palette.
     WindowBg     = Color3.fromRGB(5, 5, 7),
     CardBg       = Color3.fromRGB(13, 8, 11),
     Border       = Color3.fromRGB(55, 15, 23),
@@ -181,8 +180,8 @@ local THEMES = {
         HotbarActive = Color3.fromRGB(235, 235, 235),
         HotbarHover  = Color3.fromRGB(229, 229, 229),
         HotbarDot    = Color3.fromRGB(60, 60, 60),
-        Accent       = Color3.fromRGB(155, 35, 55),
-        AccentDim    = Color3.fromRGB(245, 220, 225),
+        Accent       = Color3.fromRGB(94, 148, 214),
+        AccentDim    = Color3.fromRGB(198, 220, 248),
         AccentText   = Color3.fromRGB(255, 255, 255),
         KnobAccent   = Color3.fromRGB(255, 255, 255),
     },
@@ -208,11 +207,11 @@ local THEMES = {
         HotbarBorder = Color3.fromRGB(25, 25, 25),
         HotbarActive = Color3.fromRGB(12, 12, 12),
         HotbarHover  = Color3.fromRGB(20, 20, 20),
-        HotbarDot    = Color3.fromRGB(180, 25, 48),
-        Accent       = Color3.fromRGB(200, 40, 62),
-        AccentDim    = Color3.fromRGB(45, 8, 16),
-        AccentText   = Color3.fromRGB(250, 242, 245),
-        KnobAccent   = Color3.fromRGB(18, 8, 11),
+        HotbarDot    = Color3.fromRGB(200, 200, 200),
+        Accent       = Color3.fromRGB(178, 210, 250),
+        AccentDim    = Color3.fromRGB(16, 32, 56),
+        AccentText   = Color3.fromRGB(5, 9, 16),
+        KnobAccent   = Color3.fromRGB(8, 12, 20),
     },
 }
 
@@ -611,7 +610,7 @@ local function buildTagFrame(player)
     local fadeOverlay = Instance.new("Frame")
     fadeOverlay.Name               = "FadeOverlay"
     fadeOverlay.Size               = UDim2.fromScale(1, 1)
-    fadeOverlay.BackgroundColor3   = Color3.fromRGB(20, 8, 12)
+    fadeOverlay.BackgroundColor3   = Color3.fromRGB(20, 20, 24)
     fadeOverlay.BackgroundTransparency = 1  -- 1 = invisible (tag shown)
     fadeOverlay.BorderSizePixel    = 0
     fadeOverlay.ZIndex             = 99
@@ -656,7 +655,7 @@ local function buildTagFrame(player)
     local avCr = Instance.new("UICorner")
     avCr.CornerRadius = UDim.new(1, 0)
     avCr.Parent = avatarHolder
-    -- avatar ring (crimson accent)
+    -- avatar ring (light blue accent)
     local avRing = Instance.new("UIStroke")
     avRing.Thickness = 1
     avRing.Color = C.Accent
@@ -724,7 +723,7 @@ local function buildTagFrame(player)
     local nameLabel = Instance.new("TextLabel")
     nameLabel.Text           = player.DisplayName
     nameLabel.Font           = Enum.Font.GothamBold
-    nameLabel.TextSize = 13
+    nameLabel.TextSize       = 13
     nameLabel.TextColor3     = Color3.fromRGB(245, 245, 248)
     nameLabel.BackgroundTransparency = 1
     nameLabel.Size           = UDim2.fromOffset(textWidth, 16)
@@ -738,8 +737,8 @@ local function buildTagFrame(player)
     local userLabel = Instance.new("TextLabel")
     userLabel.Text           = "@" .. player.Name
     userLabel.Font           = Enum.Font.Gotham
-    userLabel.TextSize = 11
-    userLabel.TextColor3     = Color3.fromRGB(145, 120, 128)
+    userLabel.TextSize       = 11
+    userLabel.TextColor3     = Color3.fromRGB(140, 140, 148)
     userLabel.BackgroundTransparency = 1
     userLabel.Size           = UDim2.fromOffset(textWidth, 13)
     userLabel.Position       = UDim2.fromOffset(textX, 26)
@@ -771,8 +770,8 @@ local function buildTagFrame(player)
     local badgeLabel = Instance.new("TextLabel")
     badgeLabel.Text              = "Oxide"
     badgeLabel.Font              = Enum.Font.GothamBold
-    badgeLabel.TextSize = 8
-    badgeLabel.TextColor3        = Color3.fromRGB(245, 225, 230)
+    badgeLabel.TextSize          = 8
+    badgeLabel.TextColor3        = Color3.fromRGB(222, 236, 253)
     badgeLabel.BackgroundTransparency = 1
     badgeLabel.Size              = UDim2.fromScale(1, 1)
     badgeLabel.TextXAlignment    = Enum.TextXAlignment.Center
@@ -845,7 +844,7 @@ local function addTag(player)
     local glowT = 0
     local currentFade = 0  -- 0 = overlay invisible (tag fully visible), 1 = overlay opaque (tag hidden)
 
-    -- Apply the dark crimson outline (Highlight, outline-only). Never on the local player.
+    -- Apply the dark blue outline (Highlight, outline-only). Never on the local player.
     local function refreshOutline()
         local char = player.Character
         if not char then return end
@@ -934,9 +933,9 @@ local function addTag(player)
             local pulse = math.sin(glowT * math.pi)                 -- 0 -> 1 -> 0 across the cycle
             local sharp = pulse * pulse                              -- sharpen so the flash is brief
             -- Brightness lerp: base dark blue -> near-white at the flash peak
-            local r = 100 + (255 - 100) * sharp
-            local g = 18  + (255 - 18)  * sharp
-            local b = 38  + (255 - 38)  * sharp
+            local r = 100  + (255 - 100)  * sharp
+            local g = 50  + (255 - 50)  * sharp
+            local b = 200 + (255 - 200) * sharp
             outline.OutlineColor = Color3.fromRGB(math.floor(r), math.floor(g), math.floor(b))
             -- Outline dims when the tag is far (matches the tag fade)
             outline.OutlineTransparency = currentFade * 0.85
@@ -1508,10 +1507,10 @@ local function buildMusicPlayer(cfg)
     local musicConns     = cfg.conns
     local opts           = cfg.opts or {}
 
-    local CLOSE_RED      = Color3.fromRGB(190, 60, 60)
-    local CLOSE_RED_HI   = Color3.fromRGB(212, 80, 80)
-    local MIN_YELLOW     = Color3.fromRGB(255, 195, 0)
-    local MIN_YELLOW_HI  = Color3.fromRGB(255, 211, 70)
+    local CLOSE_RED      = Color3.fromRGB(120, 20, 35)
+    local CLOSE_RED_HI   = Color3.fromRGB(180, 35, 55)
+    local MIN_YELLOW     = Color3.fromRGB(90, 35, 45)
+    local MIN_YELLOW_HI  = Color3.fromRGB(130, 35, 52)
     local MUSIC_FOLDER   = tostring(opts.MusicFolder or "OxideMusic")
     local musicWidth     = profileWidth
     local fullHeight     = 384
@@ -1562,7 +1561,7 @@ local function buildMusicPlayer(cfg)
     make("Frame", { Position = UDim2.new(0, 16, 0, 48), Size = UDim2.new(1, -32, 0, 1), BackgroundColor3 = C.Border, ZIndex = 151, Parent = musicPanel })
     -- macOS-style traffic lights (minimize = yellow, close = red), matching the main window
     local controls = make("Frame", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -14, 0, 15), Size = UDim2.fromOffset(32, 13), BackgroundTransparency = 1, ZIndex = 152, Parent = musicPanel })
-    local minimizeBtn = make("TextButton", { Text = "", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(0, 13, 0, 0), Size = UDim2.fromOffset(13, 13), BackgroundColor3 = Color3.fromRGB(90, 35, 45), ZIndex = 153, Parent = controls })
+    local minimizeBtn = make("TextButton", { Text = "", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(0, 13, 0, 0), Size = UDim2.fromOffset(13, 13), BackgroundColor3 = MIN_YELLOW, ZIndex = 153, Parent = controls })
     circle(minimizeBtn)
     local musicCloseBtn = make("TextButton", { Text = "", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, 0, 0, 0), Size = UDim2.fromOffset(13, 13), BackgroundColor3 = CLOSE_RED, ZIndex = 153, Parent = controls })
     circle(musicCloseBtn)
@@ -1841,8 +1840,8 @@ local function buildMusicPlayer(cfg)
         for _, e in ipairs(lowerEls) do e.Visible = not minimized end
         TweenService:Create(musicPanel, PROFILE_TWEEN, { Size = UDim2.fromOffset(musicWidth, minimized and compactHeight or fullHeight) }):Play()
     end
-    minimizeBtn.MouseEnter:Connect(function() tween(minimizeBtn, { BackgroundColor3 = Color3.fromRGB(130, 35, 52) }) end)
-    minimizeBtn.MouseLeave:Connect(function() tween(minimizeBtn, { BackgroundColor3 = Color3.fromRGB(90, 35, 45) }) end)
+    minimizeBtn.MouseEnter:Connect(function() tween(minimizeBtn, { BackgroundColor3 = MIN_YELLOW_HI }) end)
+    minimizeBtn.MouseLeave:Connect(function() tween(minimizeBtn, { BackgroundColor3 = MIN_YELLOW }) end)
     minimizeBtn.MouseButton1Click:Connect(function() setMinimized(not minimized) end)
     musicCloseBtn.MouseEnter:Connect(function() tween(musicCloseBtn, { BackgroundColor3 = CLOSE_RED_HI }) end)
     musicCloseBtn.MouseLeave:Connect(function() tween(musicCloseBtn, { BackgroundColor3 = CLOSE_RED }) end)
@@ -1884,7 +1883,7 @@ function Library:CreateWindow(opts)
     -- asset is mostly transparent padding, so it needs a healthy zoom to read;
     -- a caller-supplied logo is assumed to be already cropped.
     local logoZoom       = math.clamp(tonumber(opts.LogoZoom) or (logoAsset == DEFAULT_LOGO and 2.4 or 1), 1, 6)
-    local windowSize     = opts.Size or UDim2.fromOffset(1120, 780)
+    local windowSize     = opts.Size or UDim2.fromOffset(700, 490)
     local windowPosition = opts.Position or UDim2.fromScale(0.5, 0.5)
     local guiName        = opts.GuiName or "OxideUI"
 
@@ -1902,8 +1901,8 @@ function Library:CreateWindow(opts)
     end
     local isMobile = (opts.Mobile == true) or (opts.Mobile ~= false and detectMobile())
 
-    local HOTBAR_HEIGHT  = 52
-    local HOTBAR_GAP     = 10
+    local HOTBAR_HEIGHT  = 36
+    local HOTBAR_GAP     = 8
 
     local targetParent
     if typeof(opts.Parent) == "Instance" then
@@ -2088,59 +2087,32 @@ function Library:CreateWindow(opts)
     local main = make("Frame", {
         Name = "Main", Size = windowSize,
         Position = UDim2.fromOffset(0, 0),
-        BackgroundColor3 = C.WindowBg, BackgroundTransparency = 0.18, ClipsDescendants = true,
+        BackgroundColor3 = C.WindowBg, ClipsDescendants = true,
         Visible = not loadingEnabled, ZIndex = 2, Parent = container,
     })
-    corner(main, 18); local mainStroke = stroke(main, C.Border); mainStroke.Thickness = 1.15; mainStroke.Transparency = 0.08
+    corner(main, 12); stroke(main, C.Border)
 
-    -- Subtle smoked-glass depth: a soft shadow sits behind the window and a
-    -- very low-opacity reflection rests along the upper glass edge.
     local mainShadow = make("ImageLabel", {
         Name = "GlassShadow",
         Image = "rbxassetid://1316045217",
         ImageColor3 = Color3.fromRGB(0, 0, 0),
-        ImageTransparency = 0.48,
+        ImageTransparency = 0.78,
         ScaleType = Enum.ScaleType.Slice,
         SliceCenter = Rect.new(10, 10, 118, 118),
         BackgroundTransparency = 1,
         AnchorPoint = Vector2.new(0.5, 0.5),
         Position = UDim2.fromScale(0.5, 0.5),
-        Size = UDim2.new(1, 24, 1, 24),
+        Size = UDim2.new(1, 18, 1, 18),
         ZIndex = 1,
         Parent = container,
-    })
-
-    local glassReflection = make("Frame", {
-        Name = "GlassReflection",
-        Position = UDim2.fromOffset(1, 1),
-        Size = UDim2.new(1, -2, 0, 72),
-        BackgroundColor3 = C.White,
-        BackgroundTransparency = 0.965,
-        BorderSizePixel = 0,
-        ZIndex = 3,
-        Parent = main,
-    })
-    corner(glassReflection, 17)
-    make("UIGradient", {
-        Rotation = 90,
-        Color = ColorSequence.new({
-            ColorSequenceKeypoint.new(0, C.Accent),
-            ColorSequenceKeypoint.new(1, C.White),
-        }),
-        Transparency = NumberSequence.new({
-            NumberSequenceKeypoint.new(0, 0.72),
-            NumberSequenceKeypoint.new(0.55, 0.94),
-            NumberSequenceKeypoint.new(1, 1),
-        }),
-        Parent = glassReflection,
     })
 
     -- Animated traveling outline
     local mainGlowStroke = make("UIStroke", {
         Color = C.Accent,
-        Thickness = 1.0,
+        Thickness = 1.6,
         ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-        Transparency = 0.38,
+        Transparency = 0,
         Parent = main,
     })
     local mainGlowGradient = make("UIGradient", {
@@ -2187,12 +2159,12 @@ function Library:CreateWindow(opts)
         Position = UDim2.new(0.5, 0, 0, windowSize.Y.Offset + HOTBAR_GAP),
         Size = UDim2.fromOffset(0, HOTBAR_HEIGHT),
         AutomaticSize = Enum.AutomaticSize.X,
-        BackgroundColor3 = C.HotbarBg, BackgroundTransparency = 0.12,
+        BackgroundColor3 = C.HotbarBg,
         ClipsDescendants = false,
         Visible = not loadingEnabled,
         ZIndex = 3, Parent = container,
     })
-    corner(hotbar, 26)
+    corner(hotbar, 11)
     -- Border is white and driven entirely by the gradient below: accent at the
     -- left and right ends, normal border colour through the middle. The
     -- Theme_Color tag has to go, otherwise SetTheme would repaint the white
@@ -2203,10 +2175,7 @@ function Library:CreateWindow(opts)
     })
     hotbarStroke:SetAttribute("Theme_Color", nil)
     edgeAccentGradient(hotbarStroke, "Accent", "HotbarBorder", 0.15)
-    local hotbarSheen = make("Frame",{Name="GlassSheen",Position=UDim2.fromOffset(1,1),Size=UDim2.new(1,-2,0,22),BackgroundColor3=C.White,BackgroundTransparency=0.975,BorderSizePixel=0,ZIndex=3,Parent=hotbar})
-    corner(hotbarSheen,22)
-    make("UIGradient",{Rotation=90,Color=ColorSequence.new(C.Accent,C.White),Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.72),NumberSequenceKeypoint.new(1,1)}),Parent=hotbarSheen})
-    pad(hotbar, 7, 7, 14, 14)
+    pad(hotbar, 5, 5, 10, 10)
 
     local hotbarInner = make("Frame", {
         Name = "HotbarInner",
@@ -2235,9 +2204,7 @@ function Library:CreateWindow(opts)
         if burgerButton and burgerButton.Parent then burgerButton.Visible = minimized end
         main.Visible = not minimized
         hotbar.Visible = not minimized
-        if mainShadow and mainShadow.Parent then
-            mainShadow.ImageTransparency = minimized and 0.93 or 0.48
-        end
+        if mainShadow and mainShadow.Parent then mainShadow.Visible = not minimized end
         if windowRef then windowRef._minimized = minimized end
     end
 
@@ -2249,14 +2216,14 @@ function Library:CreateWindow(opts)
     local closeBtn = make("TextButton", {
         Text = "", Font = Enum.Font.GothamBold, TextSize = 1, TextColor3 = C.White,
         AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,0,0,0),
-        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(120, 20, 35),
+        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(190,60,60),
         ZIndex = 12, Parent = controls,
     })
     closeBtn.AutoButtonColor = false; circle(closeBtn); closeBtn.BorderSizePixel = 0
     local minimizeBtn = make("TextButton", {
         Text = "", Font = Enum.Font.GothamBold, TextSize = 1, TextColor3 = C.White,
         AnchorPoint = Vector2.new(1,0), Position = UDim2.new(0,12,0,0),
-        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(90, 35, 45),
+        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(255,195,0),
         ZIndex = 12, Parent = controls,
     })
     minimizeBtn.AutoButtonColor = false; circle(minimizeBtn); minimizeBtn.BorderSizePixel = 0
@@ -2267,11 +2234,11 @@ function Library:CreateWindow(opts)
         Name = "MinimizedPill", Text = "", AutoButtonColor = false,
         AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 10),
         Size = UDim2.fromOffset(0, 32), AutomaticSize = Enum.AutomaticSize.X,
-        BackgroundColor3 = Color3.fromRGB(8, 6, 8),
+        BackgroundColor3 = Color3.fromRGB(15, 17, 23),
         Visible = false, ZIndex = 200, Parent = screenGui,
     })
     corner(burgerButton, 16)
-    local pillStroke = stroke(burgerButton, Color3.fromRGB(55, 15, 23), 1)
+    local pillStroke = stroke(burgerButton, Color3.fromRGB(36, 40, 52), 1)
 
     make("UIListLayout", {
         SortOrder = Enum.SortOrder.LayoutOrder,
@@ -2301,7 +2268,7 @@ function Library:CreateWindow(opts)
     -- 2. Divider 1 (LayoutOrder 2)
     make("Frame", {
         Name = "Div1", Size = UDim2.fromOffset(1, 14),
-        LayoutOrder = 2, BackgroundColor3 = Color3.fromRGB(55, 15, 23),
+        LayoutOrder = 2, BackgroundColor3 = Color3.fromRGB(44, 48, 62),
         BorderSizePixel = 0, Parent = burgerButton, ZIndex = 201
     })
 
@@ -2334,7 +2301,7 @@ function Library:CreateWindow(opts)
     -- 4. Divider 2 (LayoutOrder 4)
     make("Frame", {
         Name = "Div2", Size = UDim2.fromOffset(1, 14),
-        LayoutOrder = 4, BackgroundColor3 = Color3.fromRGB(55, 15, 23),
+        LayoutOrder = 4, BackgroundColor3 = Color3.fromRGB(44, 48, 62),
         BorderSizePixel = 0, Parent = burgerButton, ZIndex = 201
     })
 
@@ -2427,14 +2394,9 @@ function Library:CreateWindow(opts)
         function() if onDragEnd then onDragEnd() end end)
 
     -- ── SIDEBAR ───────────────────────────────────────────────────────────
-    local SIDEBAR_W = 320
-    local sidebar = make("Frame", { Size=UDim2.new(0,SIDEBAR_W,1,0), BackgroundColor3=C.CardBg, BackgroundTransparency=0.38, Parent=main })
-    corner(sidebar, 18)
-    local sidebarTint = make("Frame",{Name="SidebarTint",Size=UDim2.fromScale(1,1),BackgroundColor3=C.Accent,BackgroundTransparency=0.93,Parent=sidebar})
-    corner(sidebarTint,18)
-    make("UIGradient",{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.55),NumberSequenceKeypoint.new(0.42,0.92),NumberSequenceKeypoint.new(1,0.35)}),Parent=sidebarTint})
-    local brand = make("Frame", { Name="Brand", Position=UDim2.fromOffset(18,18), Size=UDim2.new(1,-36,0,108), BackgroundColor3=C.White, BackgroundTransparency=0.10, Parent=sidebar })
-    corner(brand,16); local brandStroke = stroke(brand,C.Border); brandStroke.Transparency = 0.08
+    local sidebar = make("Frame", { Size=UDim2.new(0,190,1,0), BackgroundTransparency=1, Parent=main })
+    local brand = make("Frame", { Name="Brand", Position=UDim2.fromOffset(12,12), Size=UDim2.new(1,-24,0,64), BackgroundColor3=C.White, Parent=sidebar })
+    corner(brand,10); stroke(brand,C.Border)
     -- Smooth light-blue to gray transition over the whole card, blue at the
     -- bottom. The blue is muted (Strength < 1 blends it back toward the gray)
     -- so it stays a subtle tint. The frame must be white because a UIGradient
@@ -2478,23 +2440,23 @@ function Library:CreateWindow(opts)
     -- padding — with ScaleType.Fit the visible mark would only fill ~35% of
     -- the box. Custom logos are usually tightly cropped, so they get no zoom
     -- unless the caller opts in via `LogoZoom`.
-    local logoHolder = make("Frame", { Position=UDim2.fromOffset(12,12), Size=UDim2.fromOffset(72,72), BackgroundTransparency=1, ClipsDescendants=true, Parent=brand })
+    local logoHolder = make("Frame", { Position=UDim2.fromOffset(9,9), Size=UDim2.fromOffset(46,46), BackgroundTransparency=1, ClipsDescendants=true, Parent=brand })
     local brandLogo = make("ImageLabel",{Name="Logo",Image=logoAsset,BackgroundTransparency=1,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(logoZoom,logoZoom),ScaleType=Enum.ScaleType.Fit,Parent=logoHolder})
-    make("TextLabel",{Text=opts.Name or "Oxide UI",Font=Enum.Font.GothamBold,TextSize = 13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(98,25),Size=UDim2.new(1,-112,0,22),Parent=brand})
-    make("TextLabel",{Text=opts.BrandSubtitle or ("Oxide FREE..."..Library.Version),Font=Enum.Font.GothamMedium,TextSize = 9,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(98,54),Size=UDim2.new(1,-112,0,17),Parent=brand})
+    make("TextLabel",{Text=opts.Name or "Oxide UI",Font=Enum.Font.GothamBold,TextSize=13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(64,16),Size=UDim2.new(1,-72,0,17),Parent=brand})
+    make("TextLabel",{Text=opts.BrandSubtitle or ("Oxide FREE..."..Library.Version),Font=Enum.Font.GothamMedium,TextSize=9,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(64,35),Size=UDim2.new(1,-72,0,13),Parent=brand})
 
     -- Player mini-card (fills the sidebar and gives identity at a glance)
     local lp = Players.LocalPlayer
-    local pcard = make("Frame",{Name="PlayerCard",Position=UDim2.fromOffset(18,140),Size=UDim2.new(1,-36,0,88),BackgroundColor3=C.CardBg,BackgroundTransparency=0.12,Parent=sidebar})
-    corner(pcard,14); local pcardStroke = stroke(pcard,C.Border); pcardStroke.Transparency = 0.12
-    local avH = make("Frame",{Position=UDim2.fromOffset(12,12),Size=UDim2.fromOffset(64,64),BackgroundColor3=C.Element,Parent=pcard}); corner(avH,12)
+    local pcard = make("Frame",{Name="PlayerCard",Position=UDim2.fromOffset(12,88),Size=UDim2.new(1,-24,0,52),BackgroundColor3=C.CardBg,Parent=sidebar})
+    corner(pcard,10); stroke(pcard,C.Border)
+    local avH = make("Frame",{Position=UDim2.fromOffset(8,8),Size=UDim2.fromOffset(36,36),BackgroundColor3=C.Element,Parent=pcard}); corner(avH,8)
     local avImg = make("ImageLabel",{Image="rbxthumb://type=AvatarHeadShot&id="..lp.UserId.."&w=150&h=150",BackgroundTransparency=1,Size=UDim2.fromScale(1,1),ScaleType=Enum.ScaleType.Crop,Parent=avH}); corner(avImg,8)
     local avRing = stroke(avH,C.Accent); avRing.Transparency=0.4
-    make("TextLabel",{Text=lp.DisplayName,Font=Enum.Font.GothamBold,TextSize = 12,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(88,18),Size=UDim2.new(1,-104,0,20),Parent=pcard})
-    make("TextLabel",{Text="@"..lp.Name,Font=Enum.Font.Gotham,TextSize = 10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(88,45),Size=UDim2.new(1,-104,0,17),Parent=pcard})
+    make("TextLabel",{Text=lp.DisplayName,Font=Enum.Font.GothamBold,TextSize=12,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(52,10),Size=UDim2.new(1,-60,0,15),Parent=pcard})
+    make("TextLabel",{Text="@"..lp.Name,Font=Enum.Font.Gotham,TextSize=10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(52,28),Size=UDim2.new(1,-60,0,13),Parent=pcard})
 
     -- Faint centered logo watermark fills the otherwise empty sidebar space
-    local watermarkHolder = make("Frame",{Name="Watermark",BackgroundTransparency=1,ClipsDescendants=true,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.55,20),Size=UDim2.fromOffset(270,270),ZIndex=0,Parent=sidebar})
+    local watermarkHolder = make("Frame",{Name="Watermark",BackgroundTransparency=1,ClipsDescendants=true,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,24),Size=UDim2.fromOffset(156,156),ZIndex=0,Parent=sidebar})
 
     -- ── Travelling outline around the logo silhouette ─────────────────────
     -- UIStroke cannot trace an image's alpha (ApplyStrokeMode only covers text
@@ -2566,14 +2528,14 @@ function Library:CreateWindow(opts)
         watermarkMask:SetAttribute("Theme_ImageColor3", "WindowBg")
     end
 
-    local watermark = make("ImageLabel",{Name="WatermarkImage",Image=logoAsset,BackgroundTransparency=1,ImageTransparency=0.9,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(math.min(logoZoom, 2.0),math.min(logoZoom, 2.0)),ScaleType=Enum.ScaleType.Fit,ZIndex=3,Parent=watermarkHolder})
+    local watermark = make("ImageLabel",{Name="WatermarkImage",Image=logoAsset,BackgroundTransparency=1,ImageTransparency=0.9,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(logoZoom,logoZoom),ScaleType=Enum.ScaleType.Fit,ZIndex=3,Parent=watermarkHolder})
 
-    local statusDot = make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,20,1,-25),Size=UDim2.fromOffset(7,7),BackgroundColor3=Color3.fromRGB(75,220,235),Parent=sidebar})
+    local statusDot = make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,16,1,-19),Size=UDim2.fromOffset(6,6),BackgroundColor3=NOTIFICATION_STYLES.success.Color,Parent=sidebar})
     circle(statusDot)
-    make("TextLabel",{Text=opts.StatusText or "Oxide is ready",Font=Enum.Font.GothamMedium,TextSize = 10,TextColor3=Color3.fromRGB(105,220,232),TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.new(0,34,1,-33),Size=UDim2.new(1,-54,0,20),Parent=sidebar})
-    local divLine=make("Frame",{Position=UDim2.fromOffset(SIDEBAR_W,0),Size=UDim2.new(0,1,1,0),BackgroundColor3=C.Accent,Parent=main})
-    make("UIGradient",{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(0.18,0.82),NumberSequenceKeypoint.new(0.5,0.25),NumberSequenceKeypoint.new(0.82,0.82),NumberSequenceKeypoint.new(1,1)}),Parent=divLine})
-    local content = make("Frame",{Position=UDim2.fromOffset(SIDEBAR_W+1,0),Size=UDim2.new(1,-SIDEBAR_W-1,1,0),BackgroundTransparency=1,Parent=main})
+    make("TextLabel",{Text=opts.StatusText or "Oxide is ready",Font=Enum.Font.GothamMedium,TextSize=10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.new(0,28,1,-27),Size=UDim2.new(1,-40,0,16),Parent=sidebar})
+    local divLine=make("Frame",{Position=UDim2.fromOffset(190,0),Size=UDim2.new(0,1,1,0),BackgroundColor3=C.Accent,Parent=main})
+    make("UIGradient",{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(0.5,0.5),NumberSequenceKeypoint.new(1,1)}),Parent=divLine})
+    local content = make("Frame",{Position=UDim2.fromOffset(191,0),Size=UDim2.new(1,-191,1,0),BackgroundTransparency=1,Parent=main})
 
     -- ── DRAG FADE: smoothly hide inner content while dragging the window ──
     -- The window frame (background + border + traveling glow) stays visible;
@@ -2651,8 +2613,8 @@ function Library:CreateWindow(opts)
     local profilePanel = make("CanvasGroup",{Name="UserProfile",AnchorPoint=Vector2.new(1,1),Position=profileClosedPos,Size=UDim2.fromOffset(profileWidth,382),BackgroundColor3=C.CardBg,GroupTransparency=1,ClipsDescendants=true,ZIndex=150,Parent=screenGui})
     corner(profilePanel,14)
     local profileHeader=make("Frame",{Position=UDim2.fromOffset(0,0),Size=UDim2.new(1,0,0,65),BackgroundTransparency=1,ZIndex=151,Parent=profilePanel})
-    make("TextLabel",{Text=opts.ProfileTitle or "PLAYER PROFILE",Font=Enum.Font.GothamBold,TextSize = 13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(18,13),Size=UDim2.new(1,-36,0,18),ZIndex=152,Parent=profileHeader})
-    make("TextLabel",{Text="Live session overview",Font=Enum.Font.Gotham,TextSize = 10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(18,34),Size=UDim2.new(1,-36,0,15),ZIndex=152,Parent=profileHeader})
+    make("TextLabel",{Text=opts.ProfileTitle or "PLAYER PROFILE",Font=Enum.Font.GothamBold,TextSize=13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(18,13),Size=UDim2.new(1,-36,0,18),ZIndex=152,Parent=profileHeader})
+    make("TextLabel",{Text="Live session overview",Font=Enum.Font.Gotham,TextSize=10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(18,34),Size=UDim2.new(1,-36,0,15),ZIndex=152,Parent=profileHeader})
     make("Frame",{Position=UDim2.new(0,18,1,-1),Size=UDim2.new(1,-36,0,1),BackgroundColor3=C.Border,ZIndex=151,Parent=profileHeader})
     -- Music player toggle (sits to the right of the PLAYER PROFILE title)
     local musicToggleBtn=make("TextButton",{Name="MusicToggle",Text="",AutoButtonColor=false,AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,-16,0,14),Size=UDim2.fromOffset(34,34),BackgroundColor3=C.Element,ZIndex=153,Parent=profileHeader})
@@ -2669,21 +2631,21 @@ function Library:CreateWindow(opts)
     circle(onlineRing)
     local onlineDot=make("Frame",{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(10,10),BackgroundColor3=NOTIFICATION_STYLES.success.Color,ZIndex=155,Parent=onlineRing})
     circle(onlineDot)
-    make("TextLabel",{Text=localPlayer and localPlayer.DisplayName or "Player",Font=Enum.Font.GothamBold,TextSize = 17,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(105,22),Size=UDim2.new(1,-119,0,23),ZIndex=152,Parent=identityCard})
-    make("TextLabel",{Text=localPlayer and ("@"..localPlayer.Name) or "@unknown",Font=Enum.Font.GothamMedium,TextSize = 11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(105,47),Size=UDim2.new(1,-119,0,16),ZIndex=152,Parent=identityCard})
+    make("TextLabel",{Text=localPlayer and localPlayer.DisplayName or "Player",Font=Enum.Font.GothamBold,TextSize=17,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(105,22),Size=UDim2.new(1,-119,0,23),ZIndex=152,Parent=identityCard})
+    make("TextLabel",{Text=localPlayer and ("@"..localPlayer.Name) or "@unknown",Font=Enum.Font.GothamMedium,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(105,47),Size=UDim2.new(1,-119,0,16),ZIndex=152,Parent=identityCard})
     local connectedBadge=make("Frame",{Position=UDim2.fromOffset(105,74),Size=UDim2.fromOffset(92,24),BackgroundColor3=C.BadgeIdle,ZIndex=152,Parent=identityCard})
     corner(connectedBadge,7)
     local connectedDot=make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,9,0.5,0),Size=UDim2.fromOffset(6,6),BackgroundColor3=NOTIFICATION_STYLES.success.Color,ZIndex=153,Parent=connectedBadge})
     circle(connectedDot)
-    make("TextLabel",{Text="CONNECTED",Font=Enum.Font.GothamBold,TextSize = 8,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(22,0),Size=UDim2.new(1,-27,1,0),ZIndex=153,Parent=connectedBadge})
-    make("TextLabel",{Text="ACCOUNT DETAILS",Font=Enum.Font.GothamBold,TextSize = 10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(18,216),Size=UDim2.new(1,-36,0,16),ZIndex=152,Parent=profilePanel})
+    make("TextLabel",{Text="CONNECTED",Font=Enum.Font.GothamBold,TextSize=8,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(22,0),Size=UDim2.new(1,-27,1,0),ZIndex=153,Parent=connectedBadge})
+    make("TextLabel",{Text="ACCOUNT DETAILS",Font=Enum.Font.GothamBold,TextSize=10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(18,216),Size=UDim2.new(1,-36,0,16),ZIndex=152,Parent=profilePanel})
     local details=make("Frame",{Position=UDim2.fromOffset(16,240),Size=UDim2.new(1,-32,0,126),BackgroundColor3=C.Element,ZIndex=151,Parent=profilePanel})
     corner(details,11);stroke(details,C.Border)
     local function addProfileDetail(index,labelText,valueText)
         local y=(index-1)*42
         local row=make("Frame",{Position=UDim2.fromOffset(0,y),Size=UDim2.new(1,0,0,42),BackgroundTransparency=1,ZIndex=152,Parent=details})
-        make("TextLabel",{Text=labelText,Font=Enum.Font.GothamMedium,TextSize = 10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,0),Size=UDim2.new(0.46,-16,1,0),ZIndex=153,Parent=row})
-        local vl=make("TextLabel",{Text=valueText,Font=Enum.Font.GothamMedium,TextSize = 11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Right,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.new(0.46,0,0,0),Size=UDim2.new(0.54,-16,1,0),ZIndex=153,Parent=row})
+        make("TextLabel",{Text=labelText,Font=Enum.Font.GothamMedium,TextSize=10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,0),Size=UDim2.new(0.46,-16,1,0),ZIndex=153,Parent=row})
+        local vl=make("TextLabel",{Text=valueText,Font=Enum.Font.GothamMedium,TextSize=11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Right,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.new(0.46,0,0,0),Size=UDim2.new(0.54,-16,1,0),ZIndex=153,Parent=row})
         if index<3 then make("Frame",{Position=UDim2.new(0,16,1,-1),Size=UDim2.new(1,-32,0,1),BackgroundColor3=C.Border,ZIndex=153,Parent=row}) end
         return vl
     end
@@ -2700,20 +2662,20 @@ function Library:CreateWindow(opts)
     local performancePanel=make("CanvasGroup",{Name="LivePerformance",AnchorPoint=Vector2.new(1,1),Position=performanceClosedPos,Size=UDim2.fromOffset(performanceWidth,performanceHeight),BackgroundColor3=C.CardBg,GroupTransparency=1,ClipsDescendants=true,ZIndex=149,Parent=screenGui})
     corner(performancePanel,14)
     local performanceHeader=make("Frame",{Size=UDim2.new(1,0,0,56),BackgroundTransparency=1,ZIndex=150,Parent=performancePanel})
-    make("TextLabel",{Text=opts.PerformanceTitle or "LIVE PERFORMANCE",Font=Enum.Font.GothamBold,TextSize = 12,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,11),Size=UDim2.new(1,-94,0,17),ZIndex=151,Parent=performanceHeader})
-    make("TextLabel",{Text="Real-time frame tracker",Font=Enum.Font.Gotham,TextSize = 9,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,31),Size=UDim2.new(1,-94,0,13),ZIndex=151,Parent=performanceHeader})
+    make("TextLabel",{Text=opts.PerformanceTitle or "LIVE PERFORMANCE",Font=Enum.Font.GothamBold,TextSize=12,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,11),Size=UDim2.new(1,-94,0,17),ZIndex=151,Parent=performanceHeader})
+    make("TextLabel",{Text="Real-time frame tracker",Font=Enum.Font.Gotham,TextSize=9,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,31),Size=UDim2.new(1,-94,0,13),ZIndex=151,Parent=performanceHeader})
     local liveBadge=make("Frame",{AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,-14,0,14),Size=UDim2.fromOffset(58,20),BackgroundColor3=C.BadgeIdle,ZIndex=151,Parent=performanceHeader})
     corner(liveBadge,6)
     local liveDot=make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,8,0.5,0),Size=UDim2.fromOffset(5,5),BackgroundColor3=NOTIFICATION_STYLES.success.Color,ZIndex=152,Parent=liveBadge})
     circle(liveDot)
-    make("TextLabel",{Text="LIVE",Font=Enum.Font.GothamBold,TextSize = 8,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(19,0),Size=UDim2.new(1,-23,1,0),ZIndex=152,Parent=liveBadge})
+    make("TextLabel",{Text="LIVE",Font=Enum.Font.GothamBold,TextSize=8,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(19,0),Size=UDim2.new(1,-23,1,0),ZIndex=152,Parent=liveBadge})
     local fpsSummary=make("Frame",{Position=UDim2.fromOffset(14,58),Size=UDim2.new(1,-28,0,56),BackgroundColor3=C.Element,ZIndex=150,Parent=performancePanel})
     corner(fpsSummary,10);stroke(fpsSummary,C.Border)
-    make("TextLabel",{Text="FPS",Font=Enum.Font.GothamBold,TextSize = 8,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(12,8),Size=UDim2.new(0.5,-12,0,11),ZIndex=151,Parent=fpsSummary})
-    local currentFpsLabel=make("TextLabel",{Text="--",Font=Enum.Font.GothamBold,TextSize = 23,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(12,21),Size=UDim2.new(0.5,-12,0,28),ZIndex=151,Parent=fpsSummary})
-    make("TextLabel",{Text="FRAME TIME",Font=Enum.Font.GothamBold,TextSize = 8,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Right,BackgroundTransparency=1,Position=UDim2.new(0.5,0,0,8),Size=UDim2.new(0.5,-12,0,11),ZIndex=151,Parent=fpsSummary})
-    local frameTimeLabel=make("TextLabel",{Text="-- ms",Font=Enum.Font.GothamMedium,TextSize = 12,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Right,BackgroundTransparency=1,Position=UDim2.new(0.5,0,0,26),Size=UDim2.new(0.5,-12,0,18),ZIndex=151,Parent=fpsSummary})
-    make("TextLabel",{Text="FRAME HISTORY",Font=Enum.Font.GothamBold,TextSize = 9,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,126),Size=UDim2.new(1,-32,0,13),ZIndex=150,Parent=performancePanel})
+    make("TextLabel",{Text="FPS",Font=Enum.Font.GothamBold,TextSize=8,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(12,8),Size=UDim2.new(0.5,-12,0,11),ZIndex=151,Parent=fpsSummary})
+    local currentFpsLabel=make("TextLabel",{Text="--",Font=Enum.Font.GothamBold,TextSize=23,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(12,21),Size=UDim2.new(0.5,-12,0,28),ZIndex=151,Parent=fpsSummary})
+    make("TextLabel",{Text="FRAME TIME",Font=Enum.Font.GothamBold,TextSize=8,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Right,BackgroundTransparency=1,Position=UDim2.new(0.5,0,0,8),Size=UDim2.new(0.5,-12,0,11),ZIndex=151,Parent=fpsSummary})
+    local frameTimeLabel=make("TextLabel",{Text="-- ms",Font=Enum.Font.GothamMedium,TextSize=12,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Right,BackgroundTransparency=1,Position=UDim2.new(0.5,0,0,26),Size=UDim2.new(0.5,-12,0,18),ZIndex=151,Parent=fpsSummary})
+    make("TextLabel",{Text="FRAME HISTORY",Font=Enum.Font.GothamBold,TextSize=9,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(16,126),Size=UDim2.new(1,-32,0,13),ZIndex=150,Parent=performancePanel})
     local graphCard=make("Frame",{Position=UDim2.fromOffset(14,145),Size=UDim2.new(1,-28,0,82),BackgroundColor3=C.Element,ClipsDescendants=true,ZIndex=150,Parent=performancePanel})
     corner(graphCard,10);stroke(graphCard,C.Border)
     local graphPlot=make("Frame",{Position=UDim2.fromOffset(10,9),Size=UDim2.new(1,-20,1,-18),BackgroundTransparency=1,ClipsDescendants=true,ZIndex=151,Parent=graphCard})
@@ -2755,8 +2717,8 @@ function Library:CreateWindow(opts)
     local statValueLabels={}
     for i,sn in ipairs({"AVG","LOW","HIGH"}) do
         local sc=make("Frame",{Position=UDim2.new((i-1)/3,0,0,0),Size=UDim2.new(1/3,0,1,0),BackgroundTransparency=1,ZIndex=151,Parent=statsStrip})
-        make("TextLabel",{Text=sn,Font=Enum.Font.GothamBold,TextSize = 8,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Center,BackgroundTransparency=1,Position=UDim2.fromOffset(0,5),Size=UDim2.new(1,0,0,10),ZIndex=152,Parent=sc})
-        statValueLabels[i]=make("TextLabel",{Text="--",Font=Enum.Font.GothamMedium,TextSize = 10,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Center,BackgroundTransparency=1,Position=UDim2.fromOffset(0,19),Size=UDim2.new(1,0,0,15),ZIndex=152,Parent=sc})
+        make("TextLabel",{Text=sn,Font=Enum.Font.GothamBold,TextSize=8,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Center,BackgroundTransparency=1,Position=UDim2.fromOffset(0,5),Size=UDim2.new(1,0,0,10),ZIndex=152,Parent=sc})
+        statValueLabels[i]=make("TextLabel",{Text="--",Font=Enum.Font.GothamMedium,TextSize=10,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Center,BackgroundTransparency=1,Position=UDim2.fromOffset(0,19),Size=UDim2.new(1,0,0,15),ZIndex=152,Parent=sc})
     end
     local function redrawFpsGraph()
         local sc=#fpsSamples; local ps=graphPlot.AbsoluteSize
@@ -3031,8 +2993,8 @@ function Library:CreateWindow(opts)
                     ZIndex = 154, Parent = selfBadge,
                 })
             else
-                local CLOSE_RED    = Color3.fromRGB(190, 60, 60)
-                local CLOSE_RED_HI = Color3.fromRGB(212, 80, 80)
+                local CLOSE_RED    = Color3.fromRGB(120, 20, 35)
+                local CLOSE_RED_HI = Color3.fromRGB(180, 35, 55)
                 local JOIN_GREEN    = Color3.fromRGB(60, 158, 90)
                 local JOIN_GREEN_HI = Color3.fromRGB(80, 178, 108)
 
@@ -3553,9 +3515,9 @@ function Window:Notify(opts)
     local iconHolder=make("Frame",{Position=UDim2.fromOffset(14,17),Size=UDim2.fromOffset(28,28),BackgroundColor3=style.Color,BackgroundTransparency=0.88,ZIndex=202,Parent=card})
     corner(iconHolder,8)
     make("ImageLabel",{Image=style.Icon or ICONS.alert,ImageColor3=style.Color,BackgroundTransparency=1,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(15,15),ScaleType=Enum.ScaleType.Fit,ZIndex=203,Parent=iconHolder})
-    make("TextLabel",{Text=title,Font=Enum.Font.GothamBold,TextSize = 12,TextColor3=style.Color,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(52,8),Size=UDim2.new(1,-84,0,16),ZIndex=202,Parent=card})
-    make("TextLabel",{Text=body,Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,TextWrapped=true,BackgroundTransparency=1,Position=UDim2.fromOffset(52,27),Size=UDim2.new(1,-64,0,26),ZIndex=202,Parent=card})
-    local xb=make("TextButton",{Text="×",Font=Enum.Font.Gotham,TextSize = 14,TextColor3=C.TextDim,AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,-7,0,5),Size=UDim2.fromOffset(20,20),BackgroundTransparency=1,ZIndex=204,Parent=card})
+    make("TextLabel",{Text=title,Font=Enum.Font.GothamBold,TextSize=12,TextColor3=style.Color,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(52,8),Size=UDim2.new(1,-84,0,16),ZIndex=202,Parent=card})
+    make("TextLabel",{Text=body,Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,TextWrapped=true,BackgroundTransparency=1,Position=UDim2.fromOffset(52,27),Size=UDim2.new(1,-64,0,26),ZIndex=202,Parent=card})
+    local xb=make("TextButton",{Text="×",Font=Enum.Font.Gotham,TextSize=14,TextColor3=C.TextDim,AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,-7,0,5),Size=UDim2.fromOffset(20,20),BackgroundTransparency=1,ZIndex=204,Parent=card})
     local closed=false; local handle={}
     local function close(reason)
         if closed then return end; closed=true
@@ -3630,7 +3592,7 @@ function Window:AddTab(opts)
         ZIndex=5, Parent=self._hotbarInner,
     })
     hBtn.LayoutOrder=#self._hotbarInner:GetChildren()
-    corner(hBtn,20); pad(hBtn,0,0,16,16)
+    corner(hBtn,7); pad(hBtn,0,0,12,12)
     table.insert(win._noDrag,hBtn)
 
     local hRow=make("Frame",{BackgroundTransparency=1,AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0),ZIndex=5,Parent=hBtn})
@@ -3640,7 +3602,7 @@ function Window:AddTab(opts)
     local hIconElement = createIconElement(iconBadge, iconType, iconValue, 18, 7)
 
     local hLabel=make("TextLabel",{
-        Text=name,Font=Enum.Font.GothamMedium,TextSize = 12,
+        Text=name,Font=Enum.Font.GothamMedium,TextSize=12,
         TextColor3=C.TextGray,BackgroundTransparency=1,
         AutomaticSize=Enum.AutomaticSize.X,
         Size=UDim2.new(0,0,1,0),LayoutOrder=2,ZIndex=6,Parent=hRow,
@@ -3654,27 +3616,26 @@ function Window:AddTab(opts)
     circle(hDot)
 
     local page=make("Frame",{Size=UDim2.fromScale(1,1),BackgroundTransparency=1,Visible=false,Parent=self._content})
-    local header=make("Frame",{Size=UDim2.new(1,0,0,112),BackgroundTransparency=1,Parent=page})
+    local header=make("Frame",{Size=UDim2.new(1,0,0,88),BackgroundTransparency=1,Parent=page})
 
-    local headerBadge=make("Frame",{Size=UDim2.fromOffset(38,38),Position=UDim2.fromOffset(18,16),BackgroundTransparency=1,Parent=header})
-    local headerIconElement = createIconElement(headerBadge, iconType, iconValue, 30, 3)
+    local headerBadge=make("Frame",{Size=UDim2.fromOffset(32,32),Position=UDim2.fromOffset(14,14),BackgroundTransparency=1,Parent=header})
+    local headerIconElement = createIconElement(headerBadge, iconType, iconValue, 26, 3)
     if headerIconElement:IsA("ImageLabel") then headerIconElement.ImageColor3=C.White
     elseif headerIconElement:IsA("TextLabel") then headerIconElement.TextColor3=C.White end
 
-    make("TextLabel",{Text=name,Font=Enum.Font.GothamBold,TextSize = 14,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(66,17),Size=UDim2.new(1,-84,0,22),Parent=header})
-    make("TextLabel",{Text=opts.Subtitle or "",Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(66,42),Size=UDim2.new(1,-84,0,17),Parent=header})
-    local pillBar=make("Frame",{Position=UDim2.fromOffset(18,68),Size=UDim2.new(1,-36,0,42),BackgroundColor3=C.CardBg,BackgroundTransparency=0.18,ClipsDescendants=true,Parent=header})
-    corner(pillBar,22); local pillBarStroke=stroke(pillBar,C.Border); pillBarStroke.Transparency=0.2
-    local pillScrollLeft=make("TextButton",{Text="‹",Font=Enum.Font.GothamBold,TextSize = 18,TextColor3=C.TextGray,Size=UDim2.fromOffset(26,42),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
-    corner(pillScrollLeft,20); table.insert(win._noDrag,pillScrollLeft)
-    local pillScroll=make("ScrollingFrame",{Position=UDim2.fromOffset(30,0),Size=UDim2.new(1,-60,1,0),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=0,ScrollingDirection=Enum.ScrollingDirection.X,AutomaticCanvasSize=Enum.AutomaticSize.X,CanvasSize=UDim2.new(),ClipsDescendants=true,Parent=pillBar})
+    make("TextLabel",{Text=name,Font=Enum.Font.GothamBold,TextSize=14,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(54,17),Size=UDim2.new(1,-70,0,14),Parent=header})
+    make("TextLabel",{Text=opts.Subtitle or "",Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(54,33),Size=UDim2.new(1,-70,0,12),Parent=header})
+    local pillBar=make("Frame",{Position=UDim2.fromOffset(16,54),Size=UDim2.new(1,-32,0,24),BackgroundTransparency=1,ClipsDescendants=true,Parent=header})
+    local pillScrollLeft=make("TextButton",{Text="‹",Font=Enum.Font.GothamBold,TextSize=18,TextColor3=C.TextGray,Size=UDim2.fromOffset(20,24),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
+    corner(pillScrollLeft,6); table.insert(win._noDrag,pillScrollLeft)
+    local pillScroll=make("ScrollingFrame",{Position=UDim2.fromOffset(24,0),Size=UDim2.new(1,-48,1,0),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=0,ScrollingDirection=Enum.ScrollingDirection.X,AutomaticCanvasSize=Enum.AutomaticSize.X,CanvasSize=UDim2.new(),ClipsDescendants=true,Parent=pillBar})
     table.insert(win._noDrag,pillScroll)
     local pillRow=make("Frame",{AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0),BackgroundTransparency=1,Parent=pillScroll})
     make("UIListLayout",{FillDirection=Enum.FillDirection.Horizontal,SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,8),Parent=pillRow})
-    local pillScrollRight=make("TextButton",{Text="›",Font=Enum.Font.GothamBold,TextSize = 18,TextColor3=C.TextGray,AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,0,0,0),Size=UDim2.fromOffset(26,42),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
-    corner(pillScrollRight,20); table.insert(win._noDrag,pillScrollRight)
+    local pillScrollRight=make("TextButton",{Text="›",Font=Enum.Font.GothamBold,TextSize=18,TextColor3=C.TextGray,AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,0,0,0),Size=UDim2.fromOffset(20,24),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
+    corner(pillScrollRight,6); table.insert(win._noDrag,pillScrollRight)
     make("Frame",{Position=UDim2.new(0,0,1,-1),Size=UDim2.new(1,0,0,1),BackgroundColor3=C.Border,Parent=header})
-    local pagesHolder=make("Frame",{Position=UDim2.fromOffset(0,112),Size=UDim2.new(1,0,1,-112),BackgroundTransparency=1,Parent=page})
+    local pagesHolder=make("Frame",{Position=UDim2.fromOffset(0,88),Size=UDim2.new(1,0,1,-88),BackgroundTransparency=1,Parent=page})
 
     local tab=setmetatable({
         _window=win,
@@ -3798,14 +3759,14 @@ end
 
 function Tab:AddSubTab(name)
     name=tostring(name or "General"); local tab=self
-    local pill=make("TextButton",{Text=name,Font=Enum.Font.GothamMedium,TextSize = 12,TextColor3=C.TextGray,BackgroundColor3=C.CardBg,BackgroundTransparency=0.35,Size=UDim2.new(0,0,0,42),AutomaticSize=Enum.AutomaticSize.X,Parent=self._pillRow})
-    autoOrder(pill);corner(pill,20);pad(pill,0,0,18,18)
+    local pill=make("TextButton",{Text=name,Font=Enum.Font.GothamMedium,TextSize=12,TextColor3=C.TextGray,BackgroundColor3=C.WindowBg,Size=UDim2.new(0,0,0,24),AutomaticSize=Enum.AutomaticSize.X,Parent=self._pillRow})
+    autoOrder(pill);corner(pill,6);pad(pill,0,0,12,12)
     table.insert(tab._window._noDrag,pill)
     local page=make("ScrollingFrame",{Size=UDim2.fromScale(1,1),BackgroundTransparency=1,Visible=false,CanvasSize=UDim2.new(0,0,0,0),AutomaticCanvasSize=Enum.AutomaticSize.Y,ScrollingDirection=Enum.ScrollingDirection.Y,ScrollBarThickness=2,ScrollBarImageColor3=C.Border,Parent=self._pagesHolder})
     pad(page,12,16,16,16)
     table.insert(tab._window._noDrag,page)
-    local card=make("Frame",{Size=UDim2.new(1,-32,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=C.CardBg,BackgroundTransparency=0.22,Parent=page})
-    corner(card,16); local cardStroke=stroke(card); cardStroke.Transparency=0.16; cardStroke.Thickness=1.1; pad(card,14,14,16,16)
+    local card=make("Frame",{Size=UDim2.new(1,-32,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=C.CardBg,Parent=page})
+    corner(card,10);stroke(card);pad(card,14,14,16,16)
     make("UIListLayout",{FillDirection=Enum.FillDirection.Vertical,SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,8),Parent=card})
     local sub=setmetatable({_tab=tab,_window=tab._window,_pill=pill,_page=page,_card=card},SubTab)
     pill.MouseButton1Click:Connect(function() tab:_selectSub(sub) end)
@@ -3822,8 +3783,8 @@ local function newRow(card,h)
 end
 local function rowLabels(row,name,desc,rr)
     rr=rr or 0
-    make("TextLabel",{Text=name,Font=Enum.Font.GothamMedium,TextSize = 13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(0,0),Size=desc and UDim2.new(1,-rr,0,14) or UDim2.new(1,-rr,1,0),Parent=row})
-    if desc then make("TextLabel",{Text=desc,Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(0,16),Size=UDim2.new(1,-rr,0,12),Parent=row}) end
+    make("TextLabel",{Text=name,Font=Enum.Font.GothamMedium,TextSize=13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(0,0),Size=desc and UDim2.new(1,-rr,0,14) or UDim2.new(1,-rr,1,0),Parent=row})
+    if desc then make("TextLabel",{Text=desc,Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(0,16),Size=UDim2.new(1,-rr,0,12),Parent=row}) end
 end
 
 function SubTab:AddToggle(opts)
@@ -3858,7 +3819,7 @@ end
 function SubTab:AddButton(opts)
     opts=opts or {}
     local primary=opts.Primary==true or opts.Style=="primary"
-    local btn=make("TextButton",{Text=opts.Name or "Button",Font=Enum.Font.GothamMedium,TextSize = 12,TextColor3=primary and C.AccentText or C.TextGray,Size=UDim2.new(1,0,0,28),BackgroundColor3=primary and C.Accent or C.Element,Parent=self._card})
+    local btn=make("TextButton",{Text=opts.Name or "Button",Font=Enum.Font.GothamMedium,TextSize=12,TextColor3=primary and C.AccentText or C.TextGray,Size=UDim2.new(1,0,0,28),BackgroundColor3=primary and C.Accent or C.Element,Parent=self._card})
     autoOrder(btn);corner(btn,6)
     if primary then btn.Font=Enum.Font.GothamBold end
     btn.MouseEnter:Connect(function() if primary then tween(btn,{BackgroundTransparency=0.14}) else tween(btn,{BackgroundColor3=C.ElementHover}) end end)
@@ -3871,7 +3832,7 @@ function SubTab:AddSection(opts)
     if type(opts)=="string" then opts={Name=opts} end; opts=opts or {}
     local row=make("Frame",{Size=UDim2.new(1,0,0,22),BackgroundTransparency=1,Parent=self._card}); autoOrder(row)
     local tick=make("Frame",{AnchorPoint=Vector2.new(0,1),Position=UDim2.new(0,0,1,-4),Size=UDim2.fromOffset(3,11),BackgroundColor3=C.Accent,Parent=row}); corner(tick,2)
-    make("TextLabel",{Text=string.upper(tostring(opts.Name or "Section")),Font=Enum.Font.GothamBold,TextSize = 10,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Bottom,BackgroundTransparency=1,Position=UDim2.fromOffset(9,0),Size=UDim2.new(1,-9,1,-3),Parent=row})
+    make("TextLabel",{Text=string.upper(tostring(opts.Name or "Section")),Font=Enum.Font.GothamBold,TextSize=10,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Bottom,BackgroundTransparency=1,Position=UDim2.fromOffset(9,0),Size=UDim2.new(1,-9,1,-3),Parent=row})
     make("Frame",{Position=UDim2.new(0,0,1,-1),Size=UDim2.new(1,0,0,1),BackgroundColor3=C.Border,Parent=row})
     local accentUnderline=make("Frame",{Position=UDim2.new(0,0,1,-1),Size=UDim2.fromOffset(28,1),BackgroundColor3=C.Accent,Parent=row})
     return row
@@ -3885,7 +3846,7 @@ end
 
 function SubTab:AddLabel(opts)
     if type(opts)=="string" then opts={Text=opts} end; opts=opts or {}
-    local lbl=make("TextLabel",{Text=tostring(opts.Text or "Label"),Font=Enum.Font.GothamMedium,TextSize = 13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Size=UDim2.new(1,0,0,16),Parent=self._card})
+    local lbl=make("TextLabel",{Text=tostring(opts.Text or "Label"),Font=Enum.Font.GothamMedium,TextSize=13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Size=UDim2.new(1,0,0,16),Parent=self._card})
     autoOrder(lbl)
     return {Set=function(_,t) lbl.Text=tostring(t) end, Get=function() return lbl.Text end, Instance=lbl}
 end
@@ -3895,9 +3856,9 @@ function SubTab:AddParagraph(opts)
     local card=make("Frame",{Size=UDim2.new(1,0,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Parent=self._card}); autoOrder(card)
     make("UIListLayout",{FillDirection=Enum.FillDirection.Vertical,SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,3),Parent=card})
     if opts.Title then
-        make("TextLabel",{Text=tostring(opts.Title),Font=Enum.Font.GothamMedium,TextSize = 13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Size=UDim2.new(1,0,0,16),LayoutOrder=1,Parent=card})
+        make("TextLabel",{Text=tostring(opts.Title),Font=Enum.Font.GothamMedium,TextSize=13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Size=UDim2.new(1,0,0,16),LayoutOrder=1,Parent=card})
     end
-    local body=make("TextLabel",{Text=tostring(opts.Text or opts.Content or ""),Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,TextWrapped=true,AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Size=UDim2.new(1,0,0,0),LayoutOrder=2,Parent=card})
+    local body=make("TextLabel",{Text=tostring(opts.Text or opts.Content or ""),Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,TextWrapped=true,AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Size=UDim2.new(1,0,0,0),LayoutOrder=2,Parent=card})
     return {Set=function(_,t) body.Text=tostring(t) end, Get=function() return body.Text end, Instance=body}
 end
 
@@ -3906,7 +3867,7 @@ function SubTab:AddKeybind(opts)
     local key=opts.Default
     if typeof(key)~="EnumItem" then key=nil end
     local row=newRow(self._card,30); rowLabels(row,opts.Name or "Keybind",opts.Description,80)
-    local btn=make("TextButton",{Text=key and key.Name or "None",Font=Enum.Font.GothamMedium,TextSize = 11,TextColor3=C.TextGray,Size=UDim2.fromOffset(70,22),AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),BackgroundColor3=C.Element,Parent=row})
+    local btn=make("TextButton",{Text=key and key.Name or "None",Font=Enum.Font.GothamMedium,TextSize=11,TextColor3=C.TextGray,Size=UDim2.fromOffset(70,22),AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),BackgroundColor3=C.Element,Parent=row})
     corner(btn,6)
     local listening=false; local conn
     local function setKey(k)
@@ -3951,7 +3912,7 @@ function SubTab:AddInput(opts)
     local row=newRow(self._card,30); rowLabels(row,opts.Name or "Input",opts.Description,120)
     local holder=make("Frame",{Size=UDim2.fromOffset(110,22),AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),BackgroundColor3=C.Element,Parent=row})
     corner(holder,6)
-    local box=make("TextBox",{Text=opts.Default or "",PlaceholderText=opts.Placeholder or "...",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize = 12,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,ClearTextOnFocus=false,ClipsDescendants=true,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-30,1,0),Parent=holder})
+    local box=make("TextBox",{Text=opts.Default or "",PlaceholderText=opts.Placeholder or "...",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize=12,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,ClearTextOnFocus=false,ClipsDescendants=true,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-30,1,0),Parent=holder})
     inputIcon(holder)
     box.FocusLost:Connect(function(ep) fire(opts.Callback,box.Text,ep); Library:QueueAutoSave() end)
     return registerFlag(opts.Flag, "input", {Set=function(_,t) box.Text=tostring(t) end, Get=function() return box.Text end})
@@ -3965,7 +3926,7 @@ function SubTab:AddDropdown(opts)
     local row=newRow(self._card,30); rowLabels(row,opts.Name or "Dropdown",opts.Description,130)
     local btn=make("TextButton",{Text="",Size=UDim2.fromOffset(120,22),AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),BackgroundColor3=C.Element,Parent=row})
     corner(btn,6)
-    local vl=make("TextLabel",{Text=tostring(value),Font=Enum.Font.Gotham,TextSize = 12,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-26,1,0),Parent=btn})
+    local vl=make("TextLabel",{Text=tostring(value),Font=Enum.Font.Gotham,TextSize=12,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-26,1,0),Parent=btn})
     sortIcon(btn)
     local win=self._window; local sp=self._page; local tp=self._tab._page
     local list=make("Frame",{Visible=false,Active=true,Position=UDim2.fromOffset(0,0),Size=UDim2.new(0,LW,0,0),BackgroundColor3=C.Element,ClipsDescendants=true,ZIndex=100,Parent=win.ScreenGui})
@@ -3973,7 +3934,7 @@ function SubTab:AddDropdown(opts)
     local sb; local fq=""
     if searchable then
         local sh=make("Frame",{Position=UDim2.fromOffset(4,4),Size=UDim2.new(1,-8,0,SH-4),BackgroundColor3=C.WindowBg,ZIndex=101,Parent=list}); corner(sh,4)
-        sb=make("TextBox",{Text="",PlaceholderText="Search...",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,ClearTextOnFocus=false,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-16,1,0),ZIndex=102,Parent=sh})
+        sb=make("TextBox",{Text="",PlaceholderText="Search...",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,ClearTextOnFocus=false,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-16,1,0),ZIndex=102,Parent=sh})
     end
     local sf=make("ScrollingFrame",{Position=UDim2.fromOffset(0,searchable and SH or 0),Size=UDim2.new(1,0,1,searchable and -SH or 0),BackgroundTransparency=1,BorderSizePixel=0,CanvasSize=UDim2.new(0,0,0,0),AutomaticCanvasSize=Enum.AutomaticSize.Y,ScrollingDirection=Enum.ScrollingDirection.Y,ScrollBarThickness=3,ScrollBarImageColor3=C.Border,ZIndex=101,Parent=list})
     pad(sf,4,4,4,4)
@@ -3999,7 +3960,7 @@ function SubTab:AddDropdown(opts)
         for _,o in ipairs(co) do
             local os=tostring(o)
             if fq=="" or string.find(string.lower(os),string.lower(fq),1,true) then
-                local ob2=make("TextButton",{Text=os,Font=Enum.Font.Gotham,TextSize = 12,TextColor3=C.TextGray,Size=UDim2.new(1,-8,0,IH),BackgroundColor3=C.Element,Parent=sf})
+                local ob2=make("TextButton",{Text=os,Font=Enum.Font.Gotham,TextSize=12,TextColor3=C.TextGray,Size=UDim2.new(1,-8,0,IH),BackgroundColor3=C.Element,Parent=sf})
                 autoOrder(ob2);corner(ob2,4);make("UIPadding",{PaddingLeft=UDim.new(0,8),Parent=ob2}); ob2.TextXAlignment=Enum.TextXAlignment.Left
                 ob2.MouseEnter:Connect(function() tween(ob2,{BackgroundColor3=C.ElementHover,TextColor3=C.White}) end)
                 ob2.MouseLeave:Connect(function() tween(ob2,{BackgroundColor3=C.Element,TextColor3=C.TextGray}) end)
@@ -4053,7 +4014,7 @@ function SubTab:AddMultiDropdown(opts)
     local row=newRow(self._card,30); rowLabels(row,opts.Name or "Dropdown",opts.Description,130)
     local btn=make("TextButton",{Text="",Size=UDim2.fromOffset(120,22),AnchorPoint=Vector2.new(1,0.5),Position=UDim2.new(1,0,0.5,0),BackgroundColor3=C.Element,Parent=row})
     corner(btn,6)
-    local vl=make("TextLabel",{Text="None",Font=Enum.Font.Gotham,TextSize = 12,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-26,1,0),Parent=btn})
+    local vl=make("TextLabel",{Text="None",Font=Enum.Font.Gotham,TextSize=12,TextColor3=C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-26,1,0),Parent=btn})
     sortIcon(btn)
     local win=self._window; local sp=self._page; local tp=self._tab._page
     local list=make("Frame",{Visible=false,Active=true,Position=UDim2.fromOffset(0,0),Size=UDim2.new(0,LW,0,0),BackgroundColor3=C.Element,ClipsDescendants=true,ZIndex=100,Parent=win.ScreenGui})
@@ -4061,7 +4022,7 @@ function SubTab:AddMultiDropdown(opts)
     local sb; local fq=""
     if searchable then
         local sh=make("Frame",{Position=UDim2.fromOffset(4,4),Size=UDim2.new(1,-8,0,SH-4),BackgroundColor3=C.WindowBg,ZIndex=101,Parent=list}); corner(sh,4)
-        sb=make("TextBox",{Text="",PlaceholderText="Search...",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,ClearTextOnFocus=false,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-16,1,0),ZIndex=102,Parent=sh})
+        sb=make("TextBox",{Text="",PlaceholderText="Search...",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,ClearTextOnFocus=false,Position=UDim2.fromOffset(8,0),Size=UDim2.new(1,-16,1,0),ZIndex=102,Parent=sh})
     end
     local sf=make("ScrollingFrame",{Position=UDim2.fromOffset(0,searchable and SH or 0),Size=UDim2.new(1,0,1,searchable and -SH or 0),BackgroundTransparency=1,BorderSizePixel=0,CanvasSize=UDim2.new(0,0,0,0),AutomaticCanvasSize=Enum.AutomaticSize.Y,ScrollingDirection=Enum.ScrollingDirection.Y,ScrollBarThickness=3,ScrollBarImageColor3=C.Border,ZIndex=101,Parent=list})
     pad(sf,4,4,4,4)
@@ -4102,8 +4063,8 @@ function SubTab:AddMultiDropdown(opts)
                 autoOrder(ob2);corner(ob2,4)
                 local box=make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,8,0.5,0),Size=UDim2.fromOffset(12,12),BackgroundColor3=selected[o] and C.White or C.Badge,Parent=ob2})
                 corner(box,3)
-                local check=make("TextLabel",{Text="✓",Font=Enum.Font.GothamBold,TextSize = 10,TextColor3=C.KnobOn,BackgroundTransparency=1,Size=UDim2.fromScale(1,1),Visible=selected[o]==true,Parent=box})
-                make("TextLabel",{Text=os,Font=Enum.Font.Gotham,TextSize = 12,TextColor3=selected[o] and C.White or C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(26,0),Size=UDim2.new(1,-32,1,0),Parent=ob2})
+                local check=make("TextLabel",{Text="✓",Font=Enum.Font.GothamBold,TextSize=10,TextColor3=C.KnobOn,BackgroundTransparency=1,Size=UDim2.fromScale(1,1),Visible=selected[o]==true,Parent=box})
+                make("TextLabel",{Text=os,Font=Enum.Font.Gotham,TextSize=12,TextColor3=selected[o] and C.White or C.TextGray,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(26,0),Size=UDim2.new(1,-32,1,0),Parent=ob2})
                 ob2.MouseEnter:Connect(function() if not selected[o] then tween(ob2,{BackgroundColor3=C.ElementHover}) end end)
                 ob2.MouseLeave:Connect(function() tween(ob2,{BackgroundColor3=C.Element}) end)
                 ob2.MouseButton1Click:Connect(function()
@@ -4181,8 +4142,8 @@ function SubTab:AddSlider(opts)
     local mn=opts.Min or 0; local mx=opts.Max or 100; local sf=opts.Suffix or ""
     local value=math.clamp(opts.Default or mn,mn,mx)
     local row=newRow(self._card,32)
-    make("TextLabel",{Text=opts.Name or "Slider",Font=Enum.Font.GothamMedium,TextSize = 13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(0,0),Size=UDim2.new(0.6,0,0,14),Parent=row})
-    local vl=make("TextLabel",{Text=tostring(value)..sf,Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Right,BackgroundTransparency=1,Position=UDim2.fromOffset(0,1),Size=UDim2.new(1,0,0,13),Parent=row})
+    make("TextLabel",{Text=opts.Name or "Slider",Font=Enum.Font.GothamMedium,TextSize=13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(0,0),Size=UDim2.new(0.6,0,0,14),Parent=row})
+    local vl=make("TextLabel",{Text=tostring(value)..sf,Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Right,BackgroundTransparency=1,Position=UDim2.fromOffset(0,1),Size=UDim2.new(1,0,0,13),Parent=row})
     local track=make("Frame",{Position=UDim2.fromOffset(0,24),Size=UDim2.new(1,0,0,4),BackgroundColor3=C.TrackBg,Parent=row}); circle(track)
     local fill=make("Frame",{Size=UDim2.new(0,0,1,0),BackgroundColor3=C.Accent,Parent=track}); circle(fill)
     local knob=make("Frame",{Size=UDim2.fromOffset(12,12),AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0,0,0.5,0),BackgroundColor3=C.White,ZIndex=2,Parent=track}); circle(knob); stroke(knob,C.Accent)
@@ -4245,7 +4206,7 @@ function SubTab:AddColorPicker(opts)
     local hueHit=make("TextButton",{Text="",BackgroundTransparency=1,Position=UDim2.fromOffset(0,-4),Size=UDim2.new(1,0,0,20),ZIndex=104,Parent=hueBox})
 
     local hexHolder=make("Frame",{Position=UDim2.fromOffset(0,140),Size=UDim2.new(1,0,0,22),BackgroundColor3=C.WindowBg,ZIndex=101,Parent=inner}); corner(hexHolder,5)
-    local hexBox=make("TextBox",{Text=colorToHex(value),PlaceholderText="#FFFFFF",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize = 11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Center,BackgroundTransparency=1,ClearTextOnFocus=false,Size=UDim2.fromScale(1,1),ZIndex=102,Parent=hexHolder})
+    local hexBox=make("TextBox",{Text=colorToHex(value),PlaceholderText="#FFFFFF",PlaceholderColor3=C.Placeholder,Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Center,BackgroundTransparency=1,ClearTextOnFocus=false,Size=UDim2.fromScale(1,1),ZIndex=102,Parent=hexHolder})
 
     local function applyVisuals(a)
         local hueColor=hsvToColor(h,1,1)
