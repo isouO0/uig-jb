@@ -768,7 +768,7 @@ local function buildTagFrame(player)
     badgeStroke.Parent = badge
 
     local badgeLabel = Instance.new("TextLabel")
-    badgeLabel.Text              = "Oxide"
+    badgeLabel.Text              = "🇩🇿JB•911🇩🇿"
     badgeLabel.Font              = Enum.Font.GothamBold
     badgeLabel.TextSize          = 8
     badgeLabel.TextColor3        = Color3.fromRGB(222, 236, 253)
