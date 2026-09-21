@@ -120,39 +120,39 @@ local ICONS = {
 }
 
 local NOTIFICATION_STYLES = {
-    info    = { Name = "Info",    Color = Color3.fromRGB(170, 55, 75), Icon = "rbxassetid://10723345067" },
+    info    = { Name = "Info",    Color = Color3.fromRGB(118, 151, 194), Icon = "rbxassetid://10723345067" },
     success = { Name = "Success", Color = Color3.fromRGB(105, 166, 124), Icon = "rbxassetid://5180860280" },
     warning = { Name = "Warning", Color = Color3.fromRGB(190, 154, 84),  Icon = "rbxassetid://10747387522" },
     error   = { Name = "Error",   Color = Color3.fromRGB(190, 99, 99),   Icon = "rbxassetid://10747387522" },
 }
 
 local C = {
-    WindowBg     = Color3.fromRGB(5, 5, 7),
-    CardBg       = Color3.fromRGB(13, 8, 11),
-    Border       = Color3.fromRGB(55, 15, 23),
-    Element      = Color3.fromRGB(13, 8, 11),
-    ElementHover = Color3.fromRGB(20, 8, 12),
-    Badge        = Color3.fromRGB(45, 8, 16),
-    BadgeIdle    = Color3.fromRGB(20, 8, 12),
-    NavActive    = Color3.fromRGB(20, 8, 12),
-    NavHover     = Color3.fromRGB(13, 8, 11),
-    PillActive   = Color3.fromRGB(45, 8, 16),
-    White        = Color3.fromRGB(245, 240, 242),
-    TextGray     = Color3.fromRGB(175, 155, 162),
-    TextDim      = Color3.fromRGB(115, 95, 103),
-    KnobOff      = Color3.fromRGB(70, 45, 52),
-    KnobOn       = Color3.fromRGB(18, 8, 11),
-    TrackBg      = Color3.fromRGB(28, 12, 17),
-    Placeholder  = Color3.fromRGB(95, 72, 80),
-    HotbarBg     = Color3.fromRGB(8, 6, 8),
-    HotbarBorder = Color3.fromRGB(55, 15, 23),
-    HotbarActive = Color3.fromRGB(20, 8, 12),
-    HotbarHover  = Color3.fromRGB(30, 9, 14),
-    HotbarDot    = Color3.fromRGB(215, 45, 70),
-    Accent       = Color3.fromRGB(180, 25, 48),
-    AccentDim    = Color3.fromRGB(45, 8, 16),
-    AccentText   = Color3.fromRGB(250, 242, 245),
-    KnobAccent   = Color3.fromRGB(22, 8, 12),
+    WindowBg     = Color3.fromRGB(8, 10, 16),        -- خلفية سوداء مزرقّة
+    CardBg       = Color3.fromRGB(12, 15, 22),       -- كروت سوداء مزرقّة
+    Border       = Color3.fromRGB(20, 30, 50),       -- حدود زرقاء داكنة
+    Element      = Color3.fromRGB(15, 20, 32),       -- عناصر سوداء مزرقّة
+    ElementHover = Color3.fromRGB(22, 30, 48),       -- عند التمرير
+    Badge        = Color3.fromRGB(25, 35, 55),       -- شارات
+    BadgeIdle    = Color3.fromRGB(18, 25, 40),       -- شارات خاملة
+    NavActive    = Color3.fromRGB(15, 22, 38),       -- التنقل النشط
+    NavHover     = Color3.fromRGB(10, 15, 25),       -- التنقل عند التمرير
+    PillActive   = Color3.fromRGB(22, 32, 52),       -- الأزرار النشطة
+    White        = Color3.fromRGB(220, 235, 255),    -- النص الأبيض المزرق
+    TextGray     = Color3.fromRGB(130, 155, 190),    -- النص الرمادي المزرق
+    TextDim      = Color3.fromRGB(100, 125, 160),    -- النص الخافت
+    KnobOff      = Color3.fromRGB(55, 75, 105),      -- مقبض إيقاف
+    KnobOn       = Color3.fromRGB(5, 10, 20),        -- مقبض تشغيل
+    TrackBg      = Color3.fromRGB(25, 38, 60),       -- مسار السلايدر
+    Placeholder  = Color3.fromRGB(70, 95, 130),      -- النص المؤقت
+    HotbarBg     = Color3.fromRGB(12, 15, 22),       -- شريط التبويبات
+    HotbarBorder = Color3.fromRGB(20, 30, 50),
+    HotbarActive = Color3.fromRGB(20, 30, 50),
+    HotbarHover  = Color3.fromRGB(28, 40, 62),
+    HotbarDot    = Color3.fromRGB(140, 180, 230),
+    Accent       = Color3.fromRGB(70, 130, 220),     -- الأزرق الرئيسي
+    AccentDim    = Color3.fromRGB(15, 30, 55),
+    AccentText   = Color3.fromRGB(240, 248, 255),    -- نص فوق الأزرق
+    KnobAccent   = Color3.fromRGB(10, 20, 35),
 }
 
 local THEMES = {
@@ -580,7 +580,7 @@ local function buildTagFrame(player)
     root.Name              = "OxideTag_" .. player.UserId
     root.Size              = UDim2.fromOffset(TAG_W, TAG_H)
     root.AnchorPoint       = Vector2.new(0.5, 0.5)
-    root.BackgroundColor3  = Color3.fromRGB(13, 8, 11)
+    root.BackgroundColor3  = Color3.fromRGB(22, 22, 26)
     root.BackgroundTransparency = 0.06
     root.BorderSizePixel   = 0
     root.Visible           = false
@@ -648,7 +648,7 @@ local function buildTagFrame(player)
     local avatarHolder = Instance.new("Frame")
     avatarHolder.Size              = UDim2.fromOffset(34, 34)
     avatarHolder.Position          = UDim2.fromOffset(9, 9)
-    avatarHolder.BackgroundColor3  = Color3.fromRGB(28, 14, 18)
+    avatarHolder.BackgroundColor3  = Color3.fromRGB(40, 40, 45)
     avatarHolder.BorderSizePixel   = 0
     avatarHolder.ZIndex            = 2
     avatarHolder.Parent            = root
@@ -682,7 +682,7 @@ local function buildTagFrame(player)
     onlineRing.AnchorPoint            = Vector2.new(1, 1)
     onlineRing.Position               = UDim2.new(1, -1, 1, -1)
     onlineRing.Size                   = UDim2.fromOffset(11, 11)
-    onlineRing.BackgroundColor3       = Color3.fromRGB(13, 8, 11)
+    onlineRing.BackgroundColor3       = Color3.fromRGB(22, 22, 26)
     onlineRing.BorderSizePixel        = 0
     onlineRing.ZIndex                 = 4
     onlineRing.Parent                 = avatarHolder
@@ -706,7 +706,7 @@ local function buildTagFrame(player)
     local divider = Instance.new("Frame")
     divider.Size             = UDim2.fromOffset(1, 30)
     divider.Position         = UDim2.fromOffset(51, 11)
-    divider.BackgroundColor3 = Color3.fromRGB(55, 15, 23)
+    divider.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
     divider.BorderSizePixel  = 0
     divider.ZIndex           = 2
     divider.Parent           = root
@@ -793,7 +793,7 @@ local function buildTagFrame(player)
 end
 
 -- Outline color: matches the moving UI glow color
-local TAG_OUTLINE_COLOR = Color3.fromRGB(190, 35, 55)
+local TAG_OUTLINE_COLOR = Color3.fromRGB(167, 200, 244)
 
 -- Attach an outline (Highlight, outline-only) to a player's character.
 -- Only applied to OTHER players — never the local player themselves.
@@ -1507,10 +1507,10 @@ local function buildMusicPlayer(cfg)
     local musicConns     = cfg.conns
     local opts           = cfg.opts or {}
 
-    local CLOSE_RED      = Color3.fromRGB(120, 20, 35)
-    local CLOSE_RED_HI   = Color3.fromRGB(180, 35, 55)
-    local MIN_YELLOW     = Color3.fromRGB(90, 35, 45)
-    local MIN_YELLOW_HI  = Color3.fromRGB(130, 35, 52)
+    local CLOSE_RED      = Color3.fromRGB(190, 60, 60)
+    local CLOSE_RED_HI   = Color3.fromRGB(212, 80, 80)
+    local MIN_YELLOW     = Color3.fromRGB(255, 195, 0)
+    local MIN_YELLOW_HI  = Color3.fromRGB(255, 211, 70)
     local MUSIC_FOLDER   = tostring(opts.MusicFolder or "OxideMusic")
     local musicWidth     = profileWidth
     local fullHeight     = 384
@@ -2041,7 +2041,7 @@ function Library:CreateWindow(opts)
         local footer = make("TextLabel", {
             Size = UDim2.fromOffset(400, 16), Position = UDim2.new(0.5, 0, 0.5, 112), AnchorPoint = Vector2.new(0.5, 0.5),
             BackgroundTransparency = 1, Text = loadingFooter, Font = Enum.Font.GothamMedium, TextSize = 11,
-            TextColor3 = Color3.fromRGB(190, 35, 55), TextStrokeColor3 = Color3.fromRGB(0, 0, 0), TextStrokeTransparency = 0.6,
+            TextColor3 = Color3.fromRGB(200, 150, 90), TextStrokeColor3 = Color3.fromRGB(0, 0, 0), TextStrokeTransparency = 0.6,
             TextXAlignment = Enum.TextXAlignment.Center, TextTransparency = 1, ZIndex = 510, Parent = loadingLayer,
         })
 
@@ -2091,21 +2091,6 @@ function Library:CreateWindow(opts)
         Visible = not loadingEnabled, ZIndex = 2, Parent = container,
     })
     corner(main, 12); stroke(main, C.Border)
-
-    local mainShadow = make("ImageLabel", {
-        Name = "GlassShadow",
-        Image = "rbxassetid://1316045217",
-        ImageColor3 = Color3.fromRGB(0, 0, 0),
-        ImageTransparency = 0.78,
-        ScaleType = Enum.ScaleType.Slice,
-        SliceCenter = Rect.new(10, 10, 118, 118),
-        BackgroundTransparency = 1,
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        Position = UDim2.fromScale(0.5, 0.5),
-        Size = UDim2.new(1, 18, 1, 18),
-        ZIndex = 1,
-        Parent = container,
-    })
 
     -- Animated traveling outline
     local mainGlowStroke = make("UIStroke", {
@@ -2204,7 +2189,6 @@ function Library:CreateWindow(opts)
         if burgerButton and burgerButton.Parent then burgerButton.Visible = minimized end
         main.Visible = not minimized
         hotbar.Visible = not minimized
-        if mainShadow and mainShadow.Parent then mainShadow.Visible = not minimized end
         if windowRef then windowRef._minimized = minimized end
     end
 
@@ -2993,8 +2977,8 @@ function Library:CreateWindow(opts)
                     ZIndex = 154, Parent = selfBadge,
                 })
             else
-                local CLOSE_RED    = Color3.fromRGB(120, 20, 35)
-                local CLOSE_RED_HI = Color3.fromRGB(180, 35, 55)
+                local CLOSE_RED    = Color3.fromRGB(190, 60, 60)
+                local CLOSE_RED_HI = Color3.fromRGB(212, 80, 80)
                 local JOIN_GREEN    = Color3.fromRGB(60, 158, 90)
                 local JOIN_GREEN_HI = Color3.fromRGB(80, 178, 108)
 
