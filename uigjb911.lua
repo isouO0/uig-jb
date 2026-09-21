@@ -1884,7 +1884,7 @@ function Library:CreateWindow(opts)
     -- asset is mostly transparent padding, so it needs a healthy zoom to read;
     -- a caller-supplied logo is assumed to be already cropped.
     local logoZoom       = math.clamp(tonumber(opts.LogoZoom) or (logoAsset == DEFAULT_LOGO and 2.4 or 1), 1, 6)
-    local windowSize     = opts.Size or UDim2.fromOffset(1120, 780)
+    local windowSize     = opts.Size or UDim2.fromOffset(700, 490)
     local windowPosition = opts.Position or UDim2.fromScale(0.5, 0.5)
     local guiName        = opts.GuiName or "OxideUI"
 
@@ -1902,8 +1902,8 @@ function Library:CreateWindow(opts)
     end
     local isMobile = (opts.Mobile == true) or (opts.Mobile ~= false and detectMobile())
 
-    local HOTBAR_HEIGHT  = 52
-    local HOTBAR_GAP     = 10
+    local HOTBAR_HEIGHT  = 36
+    local HOTBAR_GAP     = 8
 
     local targetParent
     if typeof(opts.Parent) == "Instance" then
@@ -2088,10 +2088,10 @@ function Library:CreateWindow(opts)
     local main = make("Frame", {
         Name = "Main", Size = windowSize,
         Position = UDim2.fromOffset(0, 0),
-        BackgroundColor3 = C.WindowBg, BackgroundTransparency = 0.18, ClipsDescendants = true,
+        BackgroundColor3 = C.WindowBg, ClipsDescendants = true,
         Visible = not loadingEnabled, ZIndex = 2, Parent = container,
     })
-    corner(main, 18); local mainStroke = stroke(main, C.Border); mainStroke.Thickness = 1.15; mainStroke.Transparency = 0.08
+    corner(main, 12); stroke(main, C.Border)
 
     -- Subtle smoked-glass depth: a soft shadow sits behind the window and a
     -- very low-opacity reflection rests along the upper glass edge.
@@ -2099,13 +2099,13 @@ function Library:CreateWindow(opts)
         Name = "GlassShadow",
         Image = "rbxassetid://1316045217",
         ImageColor3 = Color3.fromRGB(0, 0, 0),
-        ImageTransparency = 0.48,
+        ImageTransparency = 0.58,
         ScaleType = Enum.ScaleType.Slice,
         SliceCenter = Rect.new(10, 10, 118, 118),
         BackgroundTransparency = 1,
         AnchorPoint = Vector2.new(0.5, 0.5),
         Position = UDim2.fromScale(0.5, 0.5),
-        Size = UDim2.new(1, 28, 1, 28),
+        Size = UDim2.new(1, 18, 1, 18),
         ZIndex = 1,
         Parent = container,
     })
@@ -2113,14 +2113,14 @@ function Library:CreateWindow(opts)
     local glassReflection = make("Frame", {
         Name = "GlassReflection",
         Position = UDim2.fromOffset(1, 1),
-        Size = UDim2.new(1, -2, 0, 72),
+        Size = UDim2.new(1, -2, 0, 42),
         BackgroundColor3 = C.White,
-        BackgroundTransparency = 0.965,
+        BackgroundTransparency = 0.975,
         BorderSizePixel = 0,
         ZIndex = 3,
         Parent = main,
     })
-    corner(glassReflection, 17)
+    corner(glassReflection, 11)
     make("UIGradient", {
         Rotation = 90,
         Color = ColorSequence.new({
@@ -2140,7 +2140,7 @@ function Library:CreateWindow(opts)
         Color = C.Accent,
         Thickness = 1.0,
         ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-        Transparency = 0.38,
+        Transparency = 0.18,
         Parent = main,
     })
     local mainGlowGradient = make("UIGradient", {
@@ -2187,12 +2187,12 @@ function Library:CreateWindow(opts)
         Position = UDim2.new(0.5, 0, 0, windowSize.Y.Offset + HOTBAR_GAP),
         Size = UDim2.fromOffset(0, HOTBAR_HEIGHT),
         AutomaticSize = Enum.AutomaticSize.X,
-        BackgroundColor3 = C.HotbarBg, BackgroundTransparency = 0.12,
+        BackgroundColor3 = C.HotbarBg,
         ClipsDescendants = false,
         Visible = not loadingEnabled,
         ZIndex = 3, Parent = container,
     })
-    corner(hotbar, 26)
+    corner(hotbar, 11)
     -- Border is white and driven entirely by the gradient below: accent at the
     -- left and right ends, normal border colour through the middle. The
     -- Theme_Color tag has to go, otherwise SetTheme would repaint the white
@@ -2203,10 +2203,7 @@ function Library:CreateWindow(opts)
     })
     hotbarStroke:SetAttribute("Theme_Color", nil)
     edgeAccentGradient(hotbarStroke, "Accent", "HotbarBorder", 0.15)
-    local hotbarSheen = make("Frame",{Name="GlassSheen",Position=UDim2.fromOffset(1,1),Size=UDim2.new(1,-2,0,22),BackgroundColor3=C.White,BackgroundTransparency=0.975,BorderSizePixel=0,ZIndex=3,Parent=hotbar})
-    corner(hotbarSheen,22)
-    make("UIGradient",{Rotation=90,Color=ColorSequence.new(C.Accent,C.White),Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.72),NumberSequenceKeypoint.new(1,1)}),Parent=hotbarSheen})
-    pad(hotbar, 7, 7, 14, 14)
+    pad(hotbar, 5, 5, 10, 10)
 
     local hotbarInner = make("Frame", {
         Name = "HotbarInner",
@@ -2424,14 +2421,9 @@ function Library:CreateWindow(opts)
         function() if onDragEnd then onDragEnd() end end)
 
     -- ── SIDEBAR ───────────────────────────────────────────────────────────
-    local SIDEBAR_W = 320
-    local sidebar = make("Frame", { Size=UDim2.new(0,SIDEBAR_W,1,0), BackgroundColor3=C.CardBg, BackgroundTransparency=0.38, Parent=main })
-    corner(sidebar, 18)
-    local sidebarTint = make("Frame",{Name="SidebarTint",Size=UDim2.fromScale(1,1),BackgroundColor3=C.Accent,BackgroundTransparency=0.93,Parent=sidebar})
-    corner(sidebarTint,18)
-    make("UIGradient",{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,0.55),NumberSequenceKeypoint.new(0.42,0.92),NumberSequenceKeypoint.new(1,0.35)}),Parent=sidebarTint})
-    local brand = make("Frame", { Name="Brand", Position=UDim2.fromOffset(18,18), Size=UDim2.new(1,-36,0,108), BackgroundColor3=C.White, BackgroundTransparency=0.10, Parent=sidebar })
-    corner(brand,16); local brandStroke = stroke(brand,C.Border); brandStroke.Transparency = 0.08
+    local sidebar = make("Frame", { Size=UDim2.new(0,190,1,0), BackgroundTransparency=1, Parent=main })
+    local brand = make("Frame", { Name="Brand", Position=UDim2.fromOffset(12,12), Size=UDim2.new(1,-24,0,64), BackgroundColor3=C.White, Parent=sidebar })
+    corner(brand,10); stroke(brand,C.Border)
     -- Smooth light-blue to gray transition over the whole card, blue at the
     -- bottom. The blue is muted (Strength < 1 blends it back toward the gray)
     -- so it stays a subtle tint. The frame must be white because a UIGradient
@@ -2475,23 +2467,23 @@ function Library:CreateWindow(opts)
     -- padding — with ScaleType.Fit the visible mark would only fill ~35% of
     -- the box. Custom logos are usually tightly cropped, so they get no zoom
     -- unless the caller opts in via `LogoZoom`.
-    local logoHolder = make("Frame", { Position=UDim2.fromOffset(12,12), Size=UDim2.fromOffset(72,72), BackgroundTransparency=1, ClipsDescendants=true, Parent=brand })
+    local logoHolder = make("Frame", { Position=UDim2.fromOffset(9,9), Size=UDim2.fromOffset(46,46), BackgroundTransparency=1, ClipsDescendants=true, Parent=brand })
     local brandLogo = make("ImageLabel",{Name="Logo",Image=logoAsset,BackgroundTransparency=1,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(logoZoom,logoZoom),ScaleType=Enum.ScaleType.Fit,Parent=logoHolder})
-    make("TextLabel",{Text=opts.Name or "Oxide UI",Font=Enum.Font.GothamBold,TextSize=18,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(98,25),Size=UDim2.new(1,-112,0,22),Parent=brand})
-    make("TextLabel",{Text=opts.BrandSubtitle or ("Oxide FREE..."..Library.Version),Font=Enum.Font.GothamMedium,TextSize=12,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(98,54),Size=UDim2.new(1,-112,0,17),Parent=brand})
+    make("TextLabel",{Text=opts.Name or "Oxide UI",Font=Enum.Font.GothamBold,TextSize=13,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(64,16),Size=UDim2.new(1,-72,0,17),Parent=brand})
+    make("TextLabel",{Text=opts.BrandSubtitle or ("Oxide FREE..."..Library.Version),Font=Enum.Font.GothamMedium,TextSize=9,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(64,35),Size=UDim2.new(1,-72,0,13),Parent=brand})
 
     -- Player mini-card (fills the sidebar and gives identity at a glance)
     local lp = Players.LocalPlayer
-    local pcard = make("Frame",{Name="PlayerCard",Position=UDim2.fromOffset(18,140),Size=UDim2.new(1,-36,0,88),BackgroundColor3=C.CardBg,BackgroundTransparency=0.12,Parent=sidebar})
-    corner(pcard,14); local pcardStroke = stroke(pcard,C.Border); pcardStroke.Transparency = 0.12
-    local avH = make("Frame",{Position=UDim2.fromOffset(12,12),Size=UDim2.fromOffset(64,64),BackgroundColor3=C.Element,Parent=pcard}); corner(avH,12)
+    local pcard = make("Frame",{Name="PlayerCard",Position=UDim2.fromOffset(12,88),Size=UDim2.new(1,-24,0,52),BackgroundColor3=C.CardBg,Parent=sidebar})
+    corner(pcard,10); stroke(pcard,C.Border)
+    local avH = make("Frame",{Position=UDim2.fromOffset(8,8),Size=UDim2.fromOffset(36,36),BackgroundColor3=C.Element,Parent=pcard}); corner(avH,8)
     local avImg = make("ImageLabel",{Image="rbxthumb://type=AvatarHeadShot&id="..lp.UserId.."&w=150&h=150",BackgroundTransparency=1,Size=UDim2.fromScale(1,1),ScaleType=Enum.ScaleType.Crop,Parent=avH}); corner(avImg,8)
     local avRing = stroke(avH,C.Accent); avRing.Transparency=0.4
-    make("TextLabel",{Text=lp.DisplayName,Font=Enum.Font.GothamBold,TextSize=16,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(88,18),Size=UDim2.new(1,-104,0,20),Parent=pcard})
-    make("TextLabel",{Text="@"..lp.Name,Font=Enum.Font.Gotham,TextSize=12,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(88,45),Size=UDim2.new(1,-104,0,17),Parent=pcard})
+    make("TextLabel",{Text=lp.DisplayName,Font=Enum.Font.GothamBold,TextSize=12,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(52,10),Size=UDim2.new(1,-60,0,15),Parent=pcard})
+    make("TextLabel",{Text="@"..lp.Name,Font=Enum.Font.Gotham,TextSize=10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(52,28),Size=UDim2.new(1,-60,0,13),Parent=pcard})
 
     -- Faint centered logo watermark fills the otherwise empty sidebar space
-    local watermarkHolder = make("Frame",{Name="Watermark",BackgroundTransparency=1,ClipsDescendants=true,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.55,20),Size=UDim2.fromOffset(270,270),ZIndex=0,Parent=sidebar})
+    local watermarkHolder = make("Frame",{Name="Watermark",BackgroundTransparency=1,ClipsDescendants=true,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,24),Size=UDim2.fromOffset(156,156),ZIndex=0,Parent=sidebar})
 
     -- ── Travelling outline around the logo silhouette ─────────────────────
     -- UIStroke cannot trace an image's alpha (ApplyStrokeMode only covers text
@@ -2563,14 +2555,14 @@ function Library:CreateWindow(opts)
         watermarkMask:SetAttribute("Theme_ImageColor3", "WindowBg")
     end
 
-    local watermark = make("ImageLabel",{Name="WatermarkImage",Image=logoAsset,BackgroundTransparency=1,ImageTransparency=0.9,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(math.min(logoZoom, 2.0),math.min(logoZoom, 2.0)),ScaleType=Enum.ScaleType.Fit,ZIndex=3,Parent=watermarkHolder})
+    local watermark = make("ImageLabel",{Name="WatermarkImage",Image=logoAsset,BackgroundTransparency=1,ImageTransparency=0.9,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(logoZoom,logoZoom),ScaleType=Enum.ScaleType.Fit,ZIndex=3,Parent=watermarkHolder})
 
-    local statusDot = make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,20,1,-25),Size=UDim2.fromOffset(7,7),BackgroundColor3=Color3.fromRGB(75,220,235),Parent=sidebar})
+    local statusDot = make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,16,1,-19),Size=UDim2.fromOffset(6,6),BackgroundColor3=NOTIFICATION_STYLES.success.Color,Parent=sidebar})
     circle(statusDot)
-    make("TextLabel",{Text=opts.StatusText or "Oxide is ready",Font=Enum.Font.GothamMedium,TextSize=12,TextColor3=Color3.fromRGB(105,220,232),TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.new(0,34,1,-33),Size=UDim2.new(1,-54,0,20),Parent=sidebar})
-    local divLine=make("Frame",{Position=UDim2.fromOffset(SIDEBAR_W,0),Size=UDim2.new(0,1,1,0),BackgroundColor3=C.Accent,Parent=main})
-    make("UIGradient",{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(0.18,0.82),NumberSequenceKeypoint.new(0.5,0.25),NumberSequenceKeypoint.new(0.82,0.82),NumberSequenceKeypoint.new(1,1)}),Parent=divLine})
-    local content = make("Frame",{Position=UDim2.fromOffset(SIDEBAR_W+1,0),Size=UDim2.new(1,-SIDEBAR_W-1,1,0),BackgroundTransparency=1,Parent=main})
+    make("TextLabel",{Text=opts.StatusText or "Oxide is ready",Font=Enum.Font.GothamMedium,TextSize=10,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.new(0,28,1,-27),Size=UDim2.new(1,-40,0,16),Parent=sidebar})
+    local divLine=make("Frame",{Position=UDim2.fromOffset(190,0),Size=UDim2.new(0,1,1,0),BackgroundColor3=C.Accent,Parent=main})
+    make("UIGradient",{Rotation=90,Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(0.5,0.5),NumberSequenceKeypoint.new(1,1)}),Parent=divLine})
+    local content = make("Frame",{Position=UDim2.fromOffset(191,0),Size=UDim2.new(1,-191,1,0),BackgroundTransparency=1,Parent=main})
 
     -- ── DRAG FADE: smoothly hide inner content while dragging the window ──
     -- The window frame (background + border + traveling glow) stays visible;
@@ -2667,7 +2659,7 @@ function Library:CreateWindow(opts)
     local onlineDot=make("Frame",{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(10,10),BackgroundColor3=NOTIFICATION_STYLES.success.Color,ZIndex=155,Parent=onlineRing})
     circle(onlineDot)
     make("TextLabel",{Text=localPlayer and localPlayer.DisplayName or "Player",Font=Enum.Font.GothamBold,TextSize=17,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(105,22),Size=UDim2.new(1,-119,0,23),ZIndex=152,Parent=identityCard})
-    make("TextLabel",{Text=localPlayer and ("@"..localPlayer.Name) or "@unknown",Font=Enum.Font.GothamMedium,TextSize=13,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(105,47),Size=UDim2.new(1,-119,0,16),ZIndex=152,Parent=identityCard})
+    make("TextLabel",{Text=localPlayer and ("@"..localPlayer.Name) or "@unknown",Font=Enum.Font.GothamMedium,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,TextTruncate=Enum.TextTruncate.AtEnd,BackgroundTransparency=1,Position=UDim2.fromOffset(105,47),Size=UDim2.new(1,-119,0,16),ZIndex=152,Parent=identityCard})
     local connectedBadge=make("Frame",{Position=UDim2.fromOffset(105,74),Size=UDim2.fromOffset(92,24),BackgroundColor3=C.BadgeIdle,ZIndex=152,Parent=identityCard})
     corner(connectedBadge,7)
     local connectedDot=make("Frame",{AnchorPoint=Vector2.new(0,0.5),Position=UDim2.new(0,9,0.5,0),Size=UDim2.fromOffset(6,6),BackgroundColor3=NOTIFICATION_STYLES.success.Color,ZIndex=153,Parent=connectedBadge})
@@ -3627,7 +3619,7 @@ function Window:AddTab(opts)
         ZIndex=5, Parent=self._hotbarInner,
     })
     hBtn.LayoutOrder=#self._hotbarInner:GetChildren()
-    corner(hBtn,20); pad(hBtn,0,0,16,16)
+    corner(hBtn,7); pad(hBtn,0,0,12,12)
     table.insert(win._noDrag,hBtn)
 
     local hRow=make("Frame",{BackgroundTransparency=1,AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0),ZIndex=5,Parent=hBtn})
@@ -3637,7 +3629,7 @@ function Window:AddTab(opts)
     local hIconElement = createIconElement(iconBadge, iconType, iconValue, 18, 7)
 
     local hLabel=make("TextLabel",{
-        Text=name,Font=Enum.Font.GothamMedium,TextSize=13,
+        Text=name,Font=Enum.Font.GothamMedium,TextSize=12,
         TextColor3=C.TextGray,BackgroundTransparency=1,
         AutomaticSize=Enum.AutomaticSize.X,
         Size=UDim2.new(0,0,1,0),LayoutOrder=2,ZIndex=6,Parent=hRow,
@@ -3651,27 +3643,26 @@ function Window:AddTab(opts)
     circle(hDot)
 
     local page=make("Frame",{Size=UDim2.fromScale(1,1),BackgroundTransparency=1,Visible=false,Parent=self._content})
-    local header=make("Frame",{Size=UDim2.new(1,0,0,112),BackgroundTransparency=1,Parent=page})
+    local header=make("Frame",{Size=UDim2.new(1,0,0,88),BackgroundTransparency=1,Parent=page})
 
-    local headerBadge=make("Frame",{Size=UDim2.fromOffset(38,38),Position=UDim2.fromOffset(18,16),BackgroundTransparency=1,Parent=header})
-    local headerIconElement = createIconElement(headerBadge, iconType, iconValue, 30, 3)
+    local headerBadge=make("Frame",{Size=UDim2.fromOffset(32,32),Position=UDim2.fromOffset(14,14),BackgroundTransparency=1,Parent=header})
+    local headerIconElement = createIconElement(headerBadge, iconType, iconValue, 26, 3)
     if headerIconElement:IsA("ImageLabel") then headerIconElement.ImageColor3=C.White
     elseif headerIconElement:IsA("TextLabel") then headerIconElement.TextColor3=C.White end
 
-    make("TextLabel",{Text=name,Font=Enum.Font.GothamBold,TextSize=20,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(66,17),Size=UDim2.new(1,-84,0,22),Parent=header})
-    make("TextLabel",{Text=opts.Subtitle or "",Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(66,42),Size=UDim2.new(1,-84,0,17),Parent=header})
-    local pillBar=make("Frame",{Position=UDim2.fromOffset(18,68),Size=UDim2.new(1,-36,0,42),BackgroundColor3=C.CardBg,BackgroundTransparency=0.18,ClipsDescendants=true,Parent=header})
-    corner(pillBar,22); local pillBarStroke=stroke(pillBar,C.Border); pillBarStroke.Transparency=0.2
-    local pillScrollLeft=make("TextButton",{Text="‹",Font=Enum.Font.GothamBold,TextSize=22,TextColor3=C.TextGray,Size=UDim2.fromOffset(26,42),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
-    corner(pillScrollLeft,20); table.insert(win._noDrag,pillScrollLeft)
-    local pillScroll=make("ScrollingFrame",{Position=UDim2.fromOffset(30,0),Size=UDim2.new(1,-60,1,0),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=0,ScrollingDirection=Enum.ScrollingDirection.X,AutomaticCanvasSize=Enum.AutomaticSize.X,CanvasSize=UDim2.new(),ClipsDescendants=true,Parent=pillBar})
+    make("TextLabel",{Text=name,Font=Enum.Font.GothamBold,TextSize=14,TextColor3=C.White,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(54,17),Size=UDim2.new(1,-70,0,14),Parent=header})
+    make("TextLabel",{Text=opts.Subtitle or "",Font=Enum.Font.Gotham,TextSize=11,TextColor3=C.TextDim,TextXAlignment=Enum.TextXAlignment.Left,BackgroundTransparency=1,Position=UDim2.fromOffset(54,33),Size=UDim2.new(1,-70,0,12),Parent=header})
+    local pillBar=make("Frame",{Position=UDim2.fromOffset(16,54),Size=UDim2.new(1,-32,0,24),BackgroundTransparency=1,ClipsDescendants=true,Parent=header})
+    local pillScrollLeft=make("TextButton",{Text="‹",Font=Enum.Font.GothamBold,TextSize=18,TextColor3=C.TextGray,Size=UDim2.fromOffset(20,24),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
+    corner(pillScrollLeft,6); table.insert(win._noDrag,pillScrollLeft)
+    local pillScroll=make("ScrollingFrame",{Position=UDim2.fromOffset(24,0),Size=UDim2.new(1,-48,1,0),BackgroundTransparency=1,BorderSizePixel=0,ScrollBarThickness=0,ScrollingDirection=Enum.ScrollingDirection.X,AutomaticCanvasSize=Enum.AutomaticSize.X,CanvasSize=UDim2.new(),ClipsDescendants=true,Parent=pillBar})
     table.insert(win._noDrag,pillScroll)
     local pillRow=make("Frame",{AutomaticSize=Enum.AutomaticSize.X,Size=UDim2.new(0,0,1,0),BackgroundTransparency=1,Parent=pillScroll})
     make("UIListLayout",{FillDirection=Enum.FillDirection.Horizontal,SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,8),Parent=pillRow})
-    local pillScrollRight=make("TextButton",{Text="›",Font=Enum.Font.GothamBold,TextSize=22,TextColor3=C.TextGray,AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,0,0,0),Size=UDim2.fromOffset(26,42),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
-    corner(pillScrollRight,20); table.insert(win._noDrag,pillScrollRight)
+    local pillScrollRight=make("TextButton",{Text="›",Font=Enum.Font.GothamBold,TextSize=18,TextColor3=C.TextGray,AnchorPoint=Vector2.new(1,0),Position=UDim2.new(1,0,0,0),Size=UDim2.fromOffset(20,24),BackgroundColor3=C.WindowBg,Visible=false,Parent=pillBar})
+    corner(pillScrollRight,6); table.insert(win._noDrag,pillScrollRight)
     make("Frame",{Position=UDim2.new(0,0,1,-1),Size=UDim2.new(1,0,0,1),BackgroundColor3=C.Border,Parent=header})
-    local pagesHolder=make("Frame",{Position=UDim2.fromOffset(0,112),Size=UDim2.new(1,0,1,-112),BackgroundTransparency=1,Parent=page})
+    local pagesHolder=make("Frame",{Position=UDim2.fromOffset(0,88),Size=UDim2.new(1,0,1,-88),BackgroundTransparency=1,Parent=page})
 
     local tab=setmetatable({
         _window=win,
@@ -3795,14 +3786,14 @@ end
 
 function Tab:AddSubTab(name)
     name=tostring(name or "General"); local tab=self
-    local pill=make("TextButton",{Text=name,Font=Enum.Font.GothamMedium,TextSize=13,TextColor3=C.TextGray,BackgroundColor3=C.CardBg,BackgroundTransparency=0.35,Size=UDim2.new(0,0,0,42),AutomaticSize=Enum.AutomaticSize.X,Parent=self._pillRow})
-    autoOrder(pill);corner(pill,20);pad(pill,0,0,18,18)
+    local pill=make("TextButton",{Text=name,Font=Enum.Font.GothamMedium,TextSize=12,TextColor3=C.TextGray,BackgroundColor3=C.WindowBg,Size=UDim2.new(0,0,0,24),AutomaticSize=Enum.AutomaticSize.X,Parent=self._pillRow})
+    autoOrder(pill);corner(pill,6);pad(pill,0,0,12,12)
     table.insert(tab._window._noDrag,pill)
     local page=make("ScrollingFrame",{Size=UDim2.fromScale(1,1),BackgroundTransparency=1,Visible=false,CanvasSize=UDim2.new(0,0,0,0),AutomaticCanvasSize=Enum.AutomaticSize.Y,ScrollingDirection=Enum.ScrollingDirection.Y,ScrollBarThickness=2,ScrollBarImageColor3=C.Border,Parent=self._pagesHolder})
     pad(page,12,16,16,16)
     table.insert(tab._window._noDrag,page)
-    local card=make("Frame",{Size=UDim2.new(1,-32,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=C.CardBg,BackgroundTransparency=0.22,Parent=page})
-    corner(card,16); local cardStroke=stroke(card); cardStroke.Transparency=0.16; cardStroke.Thickness=1.1; pad(card,14,14,16,16)
+    local card=make("Frame",{Size=UDim2.new(1,-32,0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=C.CardBg,Parent=page})
+    corner(card,10);stroke(card);pad(card,14,14,16,16)
     make("UIListLayout",{FillDirection=Enum.FillDirection.Vertical,SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,8),Parent=card})
     local sub=setmetatable({_tab=tab,_window=tab._window,_pill=pill,_page=page,_card=card},SubTab)
     pill.MouseButton1Click:Connect(function() tab:_selectSub(sub) end)
