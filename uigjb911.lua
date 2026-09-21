@@ -120,39 +120,40 @@ local ICONS = {
 }
 
 local NOTIFICATION_STYLES = {
-    info    = { Name = "Info",    Color = Color3.fromRGB(118, 151, 194), Icon = "rbxassetid://10723345067" },
+    info    = { Name = "Info",    Color = Color3.fromRGB(170, 55, 75), Icon = "rbxassetid://10723345067" },
     success = { Name = "Success", Color = Color3.fromRGB(105, 166, 124), Icon = "rbxassetid://5180860280" },
     warning = { Name = "Warning", Color = Color3.fromRGB(190, 154, 84),  Icon = "rbxassetid://10747387522" },
     error   = { Name = "Error",   Color = Color3.fromRGB(190, 99, 99),   Icon = "rbxassetid://10747387522" },
 }
 
 local C = {
-    WindowBg     = Color3.fromRGB(8, 10, 16),        -- خلفية سوداء مزرقّة
-    CardBg       = Color3.fromRGB(12, 15, 22),       -- كروت سوداء مزرقّة
-    Border       = Color3.fromRGB(20, 30, 50),       -- حدود زرقاء داكنة
-    Element      = Color3.fromRGB(15, 20, 32),       -- عناصر سوداء مزرقّة
-    ElementHover = Color3.fromRGB(22, 30, 48),       -- عند التمرير
-    Badge        = Color3.fromRGB(25, 35, 55),       -- شارات
-    BadgeIdle    = Color3.fromRGB(18, 25, 40),       -- شارات خاملة
-    NavActive    = Color3.fromRGB(15, 22, 38),       -- التنقل النشط
-    NavHover     = Color3.fromRGB(10, 15, 25),       -- التنقل عند التمرير
-    PillActive   = Color3.fromRGB(22, 32, 52),       -- الأزرار النشطة
-    White        = Color3.fromRGB(220, 235, 255),    -- النص الأبيض المزرق
-    TextGray     = Color3.fromRGB(130, 155, 190),    -- النص الرمادي المزرق
-    TextDim      = Color3.fromRGB(100, 125, 160),    -- النص الخافت
-    KnobOff      = Color3.fromRGB(55, 75, 105),      -- مقبض إيقاف
-    KnobOn       = Color3.fromRGB(5, 10, 20),        -- مقبض تشغيل
-    TrackBg      = Color3.fromRGB(25, 38, 60),       -- مسار السلايدر
-    Placeholder  = Color3.fromRGB(70, 95, 130),      -- النص المؤقت
-    HotbarBg     = Color3.fromRGB(12, 15, 22),       -- شريط التبويبات
-    HotbarBorder = Color3.fromRGB(20, 30, 50),
-    HotbarActive = Color3.fromRGB(20, 30, 50),
-    HotbarHover  = Color3.fromRGB(28, 40, 62),
-    HotbarDot    = Color3.fromRGB(140, 180, 230),
-    Accent       = Color3.fromRGB(70, 130, 220),     -- الأزرق الرئيسي
-    AccentDim    = Color3.fromRGB(15, 30, 55),
-    AccentText   = Color3.fromRGB(240, 248, 255),    -- نص فوق الأزرق
-    KnobAccent   = Color3.fromRGB(10, 20, 35),
+    -- Premium smoked-black / deep-crimson glass palette.
+    WindowBg     = Color3.fromRGB(5, 5, 7),
+    CardBg       = Color3.fromRGB(13, 8, 11),
+    Border       = Color3.fromRGB(55, 15, 23),
+    Element      = Color3.fromRGB(13, 8, 11),
+    ElementHover = Color3.fromRGB(20, 8, 12),
+    Badge        = Color3.fromRGB(45, 8, 16),
+    BadgeIdle    = Color3.fromRGB(20, 8, 12),
+    NavActive    = Color3.fromRGB(20, 8, 12),
+    NavHover     = Color3.fromRGB(13, 8, 11),
+    PillActive   = Color3.fromRGB(45, 8, 16),
+    White        = Color3.fromRGB(245, 240, 242),
+    TextGray     = Color3.fromRGB(175, 155, 162),
+    TextDim      = Color3.fromRGB(115, 95, 103),
+    KnobOff      = Color3.fromRGB(70, 45, 52),
+    KnobOn       = Color3.fromRGB(18, 8, 11),
+    TrackBg      = Color3.fromRGB(28, 12, 17),
+    Placeholder  = Color3.fromRGB(95, 72, 80),
+    HotbarBg     = Color3.fromRGB(8, 6, 8),
+    HotbarBorder = Color3.fromRGB(55, 15, 23),
+    HotbarActive = Color3.fromRGB(20, 8, 12),
+    HotbarHover  = Color3.fromRGB(30, 9, 14),
+    HotbarDot    = Color3.fromRGB(215, 45, 70),
+    Accent       = Color3.fromRGB(180, 25, 48),
+    AccentDim    = Color3.fromRGB(45, 8, 16),
+    AccentText   = Color3.fromRGB(250, 242, 245),
+    KnobAccent   = Color3.fromRGB(22, 8, 12),
 }
 
 local THEMES = {
@@ -180,8 +181,8 @@ local THEMES = {
         HotbarActive = Color3.fromRGB(235, 235, 235),
         HotbarHover  = Color3.fromRGB(229, 229, 229),
         HotbarDot    = Color3.fromRGB(60, 60, 60),
-        Accent       = Color3.fromRGB(94, 148, 214),
-        AccentDim    = Color3.fromRGB(198, 220, 248),
+        Accent       = Color3.fromRGB(155, 35, 55),
+        AccentDim    = Color3.fromRGB(245, 220, 225),
         AccentText   = Color3.fromRGB(255, 255, 255),
         KnobAccent   = Color3.fromRGB(255, 255, 255),
     },
@@ -207,11 +208,11 @@ local THEMES = {
         HotbarBorder = Color3.fromRGB(25, 25, 25),
         HotbarActive = Color3.fromRGB(12, 12, 12),
         HotbarHover  = Color3.fromRGB(20, 20, 20),
-        HotbarDot    = Color3.fromRGB(200, 200, 200),
-        Accent       = Color3.fromRGB(178, 210, 250),
-        AccentDim    = Color3.fromRGB(16, 32, 56),
-        AccentText   = Color3.fromRGB(5, 9, 16),
-        KnobAccent   = Color3.fromRGB(8, 12, 20),
+        HotbarDot    = Color3.fromRGB(180, 25, 48),
+        Accent       = Color3.fromRGB(200, 40, 62),
+        AccentDim    = Color3.fromRGB(45, 8, 16),
+        AccentText   = Color3.fromRGB(250, 242, 245),
+        KnobAccent   = Color3.fromRGB(18, 8, 11),
     },
 }
 
@@ -580,7 +581,7 @@ local function buildTagFrame(player)
     root.Name              = "OxideTag_" .. player.UserId
     root.Size              = UDim2.fromOffset(TAG_W, TAG_H)
     root.AnchorPoint       = Vector2.new(0.5, 0.5)
-    root.BackgroundColor3  = Color3.fromRGB(22, 22, 26)
+    root.BackgroundColor3  = Color3.fromRGB(13, 8, 11)
     root.BackgroundTransparency = 0.06
     root.BorderSizePixel   = 0
     root.Visible           = false
@@ -610,7 +611,7 @@ local function buildTagFrame(player)
     local fadeOverlay = Instance.new("Frame")
     fadeOverlay.Name               = "FadeOverlay"
     fadeOverlay.Size               = UDim2.fromScale(1, 1)
-    fadeOverlay.BackgroundColor3   = Color3.fromRGB(20, 20, 24)
+    fadeOverlay.BackgroundColor3   = Color3.fromRGB(20, 8, 12)
     fadeOverlay.BackgroundTransparency = 1  -- 1 = invisible (tag shown)
     fadeOverlay.BorderSizePixel    = 0
     fadeOverlay.ZIndex             = 99
@@ -648,14 +649,14 @@ local function buildTagFrame(player)
     local avatarHolder = Instance.new("Frame")
     avatarHolder.Size              = UDim2.fromOffset(34, 34)
     avatarHolder.Position          = UDim2.fromOffset(9, 9)
-    avatarHolder.BackgroundColor3  = Color3.fromRGB(40, 40, 45)
+    avatarHolder.BackgroundColor3  = Color3.fromRGB(28, 14, 18)
     avatarHolder.BorderSizePixel   = 0
     avatarHolder.ZIndex            = 2
     avatarHolder.Parent            = root
     local avCr = Instance.new("UICorner")
     avCr.CornerRadius = UDim.new(1, 0)
     avCr.Parent = avatarHolder
-    -- avatar ring (light blue accent)
+    -- avatar ring (crimson accent)
     local avRing = Instance.new("UIStroke")
     avRing.Thickness = 1
     avRing.Color = C.Accent
@@ -682,7 +683,7 @@ local function buildTagFrame(player)
     onlineRing.AnchorPoint            = Vector2.new(1, 1)
     onlineRing.Position               = UDim2.new(1, -1, 1, -1)
     onlineRing.Size                   = UDim2.fromOffset(11, 11)
-    onlineRing.BackgroundColor3       = Color3.fromRGB(22, 22, 26)
+    onlineRing.BackgroundColor3       = Color3.fromRGB(13, 8, 11)
     onlineRing.BorderSizePixel        = 0
     onlineRing.ZIndex                 = 4
     onlineRing.Parent                 = avatarHolder
@@ -706,7 +707,7 @@ local function buildTagFrame(player)
     local divider = Instance.new("Frame")
     divider.Size             = UDim2.fromOffset(1, 30)
     divider.Position         = UDim2.fromOffset(51, 11)
-    divider.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
+    divider.BackgroundColor3 = Color3.fromRGB(55, 15, 23)
     divider.BorderSizePixel  = 0
     divider.ZIndex           = 2
     divider.Parent           = root
@@ -738,7 +739,7 @@ local function buildTagFrame(player)
     userLabel.Text           = "@" .. player.Name
     userLabel.Font           = Enum.Font.Gotham
     userLabel.TextSize       = 11
-    userLabel.TextColor3     = Color3.fromRGB(140, 140, 148)
+    userLabel.TextColor3     = Color3.fromRGB(145, 120, 128)
     userLabel.BackgroundTransparency = 1
     userLabel.Size           = UDim2.fromOffset(textWidth, 13)
     userLabel.Position       = UDim2.fromOffset(textX, 26)
@@ -771,7 +772,7 @@ local function buildTagFrame(player)
     badgeLabel.Text              = "Oxide"
     badgeLabel.Font              = Enum.Font.GothamBold
     badgeLabel.TextSize          = 8
-    badgeLabel.TextColor3        = Color3.fromRGB(222, 236, 253)
+    badgeLabel.TextColor3        = Color3.fromRGB(245, 225, 230)
     badgeLabel.BackgroundTransparency = 1
     badgeLabel.Size              = UDim2.fromScale(1, 1)
     badgeLabel.TextXAlignment    = Enum.TextXAlignment.Center
@@ -793,7 +794,7 @@ local function buildTagFrame(player)
 end
 
 -- Outline color: matches the moving UI glow color
-local TAG_OUTLINE_COLOR = Color3.fromRGB(167, 200, 244)
+local TAG_OUTLINE_COLOR = Color3.fromRGB(190, 35, 55)
 
 -- Attach an outline (Highlight, outline-only) to a player's character.
 -- Only applied to OTHER players — never the local player themselves.
@@ -844,7 +845,7 @@ local function addTag(player)
     local glowT = 0
     local currentFade = 0  -- 0 = overlay invisible (tag fully visible), 1 = overlay opaque (tag hidden)
 
-    -- Apply the dark blue outline (Highlight, outline-only). Never on the local player.
+    -- Apply the dark crimson outline (Highlight, outline-only). Never on the local player.
     local function refreshOutline()
         local char = player.Character
         if not char then return end
@@ -933,9 +934,9 @@ local function addTag(player)
             local pulse = math.sin(glowT * math.pi)                 -- 0 -> 1 -> 0 across the cycle
             local sharp = pulse * pulse                              -- sharpen so the flash is brief
             -- Brightness lerp: base dark blue -> near-white at the flash peak
-            local r = 100  + (255 - 100)  * sharp
-            local g = 50  + (255 - 50)  * sharp
-            local b = 200 + (255 - 200) * sharp
+            local r = 100 + (255 - 100) * sharp
+            local g = 18  + (255 - 18)  * sharp
+            local b = 38  + (255 - 38)  * sharp
             outline.OutlineColor = Color3.fromRGB(math.floor(r), math.floor(g), math.floor(b))
             -- Outline dims when the tag is far (matches the tag fade)
             outline.OutlineTransparency = currentFade * 0.85
@@ -1561,7 +1562,7 @@ local function buildMusicPlayer(cfg)
     make("Frame", { Position = UDim2.new(0, 16, 0, 48), Size = UDim2.new(1, -32, 0, 1), BackgroundColor3 = C.Border, ZIndex = 151, Parent = musicPanel })
     -- macOS-style traffic lights (minimize = yellow, close = red), matching the main window
     local controls = make("Frame", { AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -14, 0, 15), Size = UDim2.fromOffset(32, 13), BackgroundTransparency = 1, ZIndex = 152, Parent = musicPanel })
-    local minimizeBtn = make("TextButton", { Text = "", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(0, 13, 0, 0), Size = UDim2.fromOffset(13, 13), BackgroundColor3 = MIN_YELLOW, ZIndex = 153, Parent = controls })
+    local minimizeBtn = make("TextButton", { Text = "", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(0, 13, 0, 0), Size = UDim2.fromOffset(13, 13), BackgroundColor3 = Color3.fromRGB(90, 35, 45), ZIndex = 153, Parent = controls })
     circle(minimizeBtn)
     local musicCloseBtn = make("TextButton", { Text = "", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, 0, 0, 0), Size = UDim2.fromOffset(13, 13), BackgroundColor3 = CLOSE_RED, ZIndex = 153, Parent = controls })
     circle(musicCloseBtn)
@@ -1840,8 +1841,8 @@ local function buildMusicPlayer(cfg)
         for _, e in ipairs(lowerEls) do e.Visible = not minimized end
         TweenService:Create(musicPanel, PROFILE_TWEEN, { Size = UDim2.fromOffset(musicWidth, minimized and compactHeight or fullHeight) }):Play()
     end
-    minimizeBtn.MouseEnter:Connect(function() tween(minimizeBtn, { BackgroundColor3 = MIN_YELLOW_HI }) end)
-    minimizeBtn.MouseLeave:Connect(function() tween(minimizeBtn, { BackgroundColor3 = MIN_YELLOW }) end)
+    minimizeBtn.MouseEnter:Connect(function() tween(minimizeBtn, { BackgroundColor3 = Color3.fromRGB(130, 35, 52) }) end)
+    minimizeBtn.MouseLeave:Connect(function() tween(minimizeBtn, { BackgroundColor3 = Color3.fromRGB(90, 35, 45) }) end)
     minimizeBtn.MouseButton1Click:Connect(function() setMinimized(not minimized) end)
     musicCloseBtn.MouseEnter:Connect(function() tween(musicCloseBtn, { BackgroundColor3 = CLOSE_RED_HI }) end)
     musicCloseBtn.MouseLeave:Connect(function() tween(musicCloseBtn, { BackgroundColor3 = CLOSE_RED }) end)
@@ -2041,7 +2042,7 @@ function Library:CreateWindow(opts)
         local footer = make("TextLabel", {
             Size = UDim2.fromOffset(400, 16), Position = UDim2.new(0.5, 0, 0.5, 112), AnchorPoint = Vector2.new(0.5, 0.5),
             BackgroundTransparency = 1, Text = loadingFooter, Font = Enum.Font.GothamMedium, TextSize = 11,
-            TextColor3 = Color3.fromRGB(200, 150, 90), TextStrokeColor3 = Color3.fromRGB(0, 0, 0), TextStrokeTransparency = 0.6,
+            TextColor3 = Color3.fromRGB(190, 35, 55), TextStrokeColor3 = Color3.fromRGB(0, 0, 0), TextStrokeTransparency = 0.6,
             TextXAlignment = Enum.TextXAlignment.Center, TextTransparency = 1, ZIndex = 510, Parent = loadingLayer,
         })
 
@@ -2092,12 +2093,54 @@ function Library:CreateWindow(opts)
     })
     corner(main, 12); stroke(main, C.Border)
 
+    -- Subtle smoked-glass depth: a soft shadow sits behind the window and a
+    -- very low-opacity reflection rests along the upper glass edge.
+    local mainShadow = make("ImageLabel", {
+        Name = "GlassShadow",
+        Image = "rbxassetid://1316045217",
+        ImageColor3 = Color3.fromRGB(0, 0, 0),
+        ImageTransparency = 0.58,
+        ScaleType = Enum.ScaleType.Slice,
+        SliceCenter = Rect.new(10, 10, 118, 118),
+        BackgroundTransparency = 1,
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        Position = UDim2.fromScale(0.5, 0.5),
+        Size = UDim2.new(1, 18, 1, 18),
+        ZIndex = 1,
+        Parent = container,
+    })
+
+    local glassReflection = make("Frame", {
+        Name = "GlassReflection",
+        Position = UDim2.fromOffset(1, 1),
+        Size = UDim2.new(1, -2, 0, 42),
+        BackgroundColor3 = C.White,
+        BackgroundTransparency = 0.975,
+        BorderSizePixel = 0,
+        ZIndex = 3,
+        Parent = main,
+    })
+    corner(glassReflection, 11)
+    make("UIGradient", {
+        Rotation = 90,
+        Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, C.Accent),
+            ColorSequenceKeypoint.new(1, C.White),
+        }),
+        Transparency = NumberSequence.new({
+            NumberSequenceKeypoint.new(0, 0.72),
+            NumberSequenceKeypoint.new(0.55, 0.94),
+            NumberSequenceKeypoint.new(1, 1),
+        }),
+        Parent = glassReflection,
+    })
+
     -- Animated traveling outline
     local mainGlowStroke = make("UIStroke", {
         Color = C.Accent,
-        Thickness = 1.6,
+        Thickness = 1.0,
         ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-        Transparency = 0,
+        Transparency = 0.18,
         Parent = main,
     })
     local mainGlowGradient = make("UIGradient", {
@@ -2200,14 +2243,14 @@ function Library:CreateWindow(opts)
     local closeBtn = make("TextButton", {
         Text = "", Font = Enum.Font.GothamBold, TextSize = 1, TextColor3 = C.White,
         AnchorPoint = Vector2.new(1,0), Position = UDim2.new(1,0,0,0),
-        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(190,60,60),
+        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(120, 20, 35),
         ZIndex = 12, Parent = controls,
     })
     closeBtn.AutoButtonColor = false; circle(closeBtn); closeBtn.BorderSizePixel = 0
     local minimizeBtn = make("TextButton", {
         Text = "", Font = Enum.Font.GothamBold, TextSize = 1, TextColor3 = C.White,
         AnchorPoint = Vector2.new(1,0), Position = UDim2.new(0,12,0,0),
-        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(255,195,0),
+        Size = UDim2.fromOffset(14,14), BackgroundColor3 = Color3.fromRGB(90, 35, 45),
         ZIndex = 12, Parent = controls,
     })
     minimizeBtn.AutoButtonColor = false; circle(minimizeBtn); minimizeBtn.BorderSizePixel = 0
@@ -2218,11 +2261,11 @@ function Library:CreateWindow(opts)
         Name = "MinimizedPill", Text = "", AutoButtonColor = false,
         AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 10),
         Size = UDim2.fromOffset(0, 32), AutomaticSize = Enum.AutomaticSize.X,
-        BackgroundColor3 = Color3.fromRGB(15, 17, 23),
+        BackgroundColor3 = Color3.fromRGB(8, 6, 8),
         Visible = false, ZIndex = 200, Parent = screenGui,
     })
     corner(burgerButton, 16)
-    local pillStroke = stroke(burgerButton, Color3.fromRGB(36, 40, 52), 1)
+    local pillStroke = stroke(burgerButton, Color3.fromRGB(55, 15, 23), 1)
 
     make("UIListLayout", {
         SortOrder = Enum.SortOrder.LayoutOrder,
@@ -2252,7 +2295,7 @@ function Library:CreateWindow(opts)
     -- 2. Divider 1 (LayoutOrder 2)
     make("Frame", {
         Name = "Div1", Size = UDim2.fromOffset(1, 14),
-        LayoutOrder = 2, BackgroundColor3 = Color3.fromRGB(44, 48, 62),
+        LayoutOrder = 2, BackgroundColor3 = Color3.fromRGB(55, 15, 23),
         BorderSizePixel = 0, Parent = burgerButton, ZIndex = 201
     })
 
@@ -2285,7 +2328,7 @@ function Library:CreateWindow(opts)
     -- 4. Divider 2 (LayoutOrder 4)
     make("Frame", {
         Name = "Div2", Size = UDim2.fromOffset(1, 14),
-        LayoutOrder = 4, BackgroundColor3 = Color3.fromRGB(44, 48, 62),
+        LayoutOrder = 4, BackgroundColor3 = Color3.fromRGB(55, 15, 23),
         BorderSizePixel = 0, Parent = burgerButton, ZIndex = 201
     })
 
